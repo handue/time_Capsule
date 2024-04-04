@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/LocationController.dart';
@@ -9,6 +10,7 @@ import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/screen/MapPage.dart';
 import 'package:time_capsule/widget/Expandable_fab.dart';
+import 'package:time_capsule/widget/dropDownWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -27,12 +29,12 @@ class HomeScreen extends StatelessWidget {
     double width = screenSize.width;
     double height = screenSize.height;
 
-    return SafeArea(
-      child: Scaffold(
-        floatingActionButton: ExpandableFab(
-          distance: 80.0,
-        ),
-        body: Stack(children: [
+    return Scaffold(
+      floatingActionButton: ExpandableFab(
+        distance: 80.0,
+      ),
+      body: SafeArea(
+        child: Stack(children: [
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -78,10 +80,40 @@ class HomeScreen extends StatelessWidget {
               //   ),
               // ),
               actions: [
-                Icon(Icons.search, size: width * 0.083),
+                Icon(
+                  Icons.search,
+                  size: width * 0.083,
+                ),
                 const Padding(padding: EdgeInsets.only(right: 8)),
-                Icon(Icons.menu, size: width * 0.09),
-                const Padding(padding: EdgeInsets.only(right: 10)),
+
+                PopupMenuButton(
+                  icon: Icon(
+                    Icons.menu,
+                    size: width * 0.09,
+                  ),
+                  offset: Offset(width, height * 0.055),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  color: const Color.fromARGB(255, 190, 201, 250),
+                  elevation: 50,
+                  itemBuilder: (context) {
+                    return [
+                      dropDownWidget.buildPopupMenuItemWidget(
+                          "Search", Icons.search, Options.search.index),
+                      dropDownWidget.buildPopupMenuItemWidget(
+                          "Notification",
+                          Icons.notifications_none_outlined,
+                          Options.notification.index),
+                      dropDownWidget.buildPopupMenuItemWidget(
+                          "Setting", Icons.settings, Options.setting.index),
+                      dropDownWidget.buildPopupMenuItemWidget(
+                          "Logout", Icons.logout, Options.logout.index),
+                    ];
+                  },
+                ),
+
+                // Icon(Icons.menu, size: width * 0.09),
+                // const Padding(padding: EdgeInsets.only(right: 10)),
               ],
             ),
             Obx(() {
@@ -226,46 +258,44 @@ class HomeScreen extends StatelessWidget {
             }),
           ]),
         ]),
-        // }
-        // },
-        // ),
-        bottomNavigationBar: Container(
-          height: height * 0.07,
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(width: 0.5, color: Colors.grey),
-            ),
+      ),
+      // }
+      // },
+      // ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 0.5, color: Colors.grey),
           ),
-          child: Obx(
-            () {
-              return BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                iconSize: width * 0.05,
-                unselectedItemColor: Colors.grey,
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                selectedItemColor: Colors.black,
-                currentIndex: bottomButtonController.selectedIndex.value,
-                selectedLabelStyle: const TextStyle(color: Colors.black),
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.group), label: 'Group'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.location_on_outlined), label: 'Map'),
-                  BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.profile_circled),
-                      label: 'MyPage'),
-                ],
-                onTap: (index) {
-                  bottomButtonController.onTap(index);
-                } // 아 이 value(지금은 index) 값이 눌렀을 떄 index 제공해주는 값이네
+        ),
+        child: Obx(
+          () {
+            return BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              iconSize: width * 0.05,
+              unselectedItemColor: Colors.grey,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              selectedItemColor: Colors.black,
+              currentIndex: bottomButtonController.selectedIndex.value,
+              selectedLabelStyle: const TextStyle(color: Colors.black),
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.group), label: 'Group'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.location_on_outlined), label: 'Map'),
+                BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.profile_circled),
+                    label: 'MyPage'),
+              ],
+              onTap: (index) {
+                bottomButtonController.onTap(index);
+              } // 아 이 value(지금은 index) 값이 눌렀을 떄 index 제공해주는 값이네
 
-                ,
-              );
-            },
-          ),
+              ,
+            );
+          },
         ),
       ),
     );

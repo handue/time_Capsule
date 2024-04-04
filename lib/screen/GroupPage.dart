@@ -16,9 +16,9 @@ class GroupPage extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
               // SliverFillRemaining 나중에 이거 함 써봐도 좋을듯
@@ -100,43 +100,41 @@ class GroupPage extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: Container(
-          height: height * 0.075,
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(width: 0.5, color: Colors.grey),
-            ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 0.5, color: Colors.grey),
           ),
-          child: Obx(
-            () {
-              return BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                iconSize: width * 0.05,
-                unselectedItemColor: Colors.grey,
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                selectedItemColor: Colors.black,
-                currentIndex: bottomButtonController.selectedIndex.value,
-                selectedLabelStyle: const TextStyle(color: Colors.black),
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.group), label: 'Group'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.location_on_outlined), label: 'Map'),
-                  BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.profile_circled),
-                      label: 'MyPage'),
-                ],
-                onTap: (index) {
-                  bottomButtonController.onTap(index);
-                } // 아 이 value(지금은 index) 값이 눌렀을 떄 index 제공해주는 값이네
+        ),
+        child: Obx(
+          () {
+            return BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              iconSize: width * 0.05,
+              unselectedItemColor: Colors.grey,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              selectedItemColor: Colors.black,
+              currentIndex: bottomButtonController.selectedIndex.value,
+              selectedLabelStyle: const TextStyle(color: Colors.black),
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.group), label: 'Group'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.location_on_outlined), label: 'Map'),
+                BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.profile_circled),
+                    label: 'MyPage'),
+              ],
+              onTap: (index) {
+                bottomButtonController.onTap(index);
+              } // 아 이 value(지금은 index) 값이 눌렀을 떄 index 제공해주는 값이네
 
-                ,
-              );
-            },
-          ),
+              ,
+            );
+          },
         ),
       ),
     );
