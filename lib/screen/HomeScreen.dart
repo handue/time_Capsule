@@ -14,6 +14,7 @@ import 'package:time_capsule/widget/dropDownWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+
   LocationController locationController = Get.find<LocationController>();
   PostController postController = Get.find<PostController>();
   BottomButtonController bottomButtonController =

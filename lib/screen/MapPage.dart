@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
+import 'package:time_capsule/screen/ArCamera.dart';
 import 'package:time_capsule/widget/customMarker.dart';
 
 class MapPage extends StatelessWidget {
@@ -35,8 +36,9 @@ class MapPage extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  PhotoController photoController = Get.find<PhotoController>();
-                  photoController.cameraPick();
+                  // PhotoController photoController = Get.find<PhotoController>();
+                  // photoController.cameraPick();
+                  Get.to(() => const ArCamera());
                 },
                 icon: Icon(
                   CupertinoIcons.camera_on_rectangle_fill,

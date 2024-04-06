@@ -47,6 +47,7 @@ class LocationController extends GetxController {
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen((Position position) {
       currentPosition.value = position;
+      print(currentPosition.value);
       addMarker('images/profile.png', position);
     });
   }

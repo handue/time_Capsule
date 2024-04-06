@@ -7,6 +7,7 @@ import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/AddPostPage.dart';
 import 'package:time_capsule/screen/ArCamera.dart';
+import 'package:time_capsule/screen/ArTest.dart';
 
 const Duration _duration = Duration(milliseconds: 275);
 
@@ -91,7 +92,8 @@ class ExpandableFab extends StatelessWidget {
               onPressed: () {
                 PhotoController photoController = Get.find<PhotoController>();
                 // photoController.cameraPick();
-                Get.to(() => const ArCamera());
+                // Get.to(() => const ArCamera());
+                Get.to(() => const ArTest());
 
                 // Get.to() 카메라 들어가는거
               },
