@@ -2,6 +2,9 @@ import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
+//현재 위치를 기반으로 좌표 찍고 AR 넣으려면 AR KIT보다는 unity 사용해야 되는거 같음.. 힘들더라도 그쪽 방향으로 가야하는데 내일까지 정보 더 찾아보고
+// 없으면 그냥 UNITY 해야할듯
+
 class ArTest extends StatefulWidget {
   const ArTest({super.key});
 
