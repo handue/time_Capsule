@@ -4,6 +4,8 @@ import 'package:vector_math/vector_math_64.dart' as vector;
 
 //현재 위치를 기반으로 좌표 찍고 AR 넣으려면 AR KIT보다는 unity 사용해야 되는거 같음.. 힘들더라도 그쪽 방향으로 가야하는데 내일까지 정보 더 찾아보고
 // 없으면 그냥 UNITY 해야할듯
+//현재 유니티 하고 있는데 계속 의문이 있음, 결국 자세한 좌표로 찍는게 불가능하면 flutter 통해서 animate 되는지만 확인해보면 되는거 아닌가?
+//유니티를 굳이 해야하나? 라는 생각이 존재. 내일까지 정해보기로 했음
 
 class ArTest extends StatefulWidget {
   const ArTest({super.key});
