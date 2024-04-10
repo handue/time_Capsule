@@ -7,6 +7,7 @@ import 'package:vector_math/vector_math_64.dart' as vector;
 //현재 유니티 하고 있는데 계속 의문이 있음, 결국 자세한 좌표로 찍는게 불가능하면 flutter 통해서 animate 되는지만 확인해보면 되는거 아닌가?
 //유니티를 굳이 해야하나? 라는 생각이 존재. 내일까지 정해보기로 했음
 // 유니티로 하는중, 유니티로 하는게 맞는거 같음 flutter로 했을 때 차후 업데이트에 분명 한계가 있을거라고 판단 + 깔끔한 기능 위해선 유니티 하는게 맞는듯
+// 유니티 본격 1일차 4.10
 
 class ArTest extends StatefulWidget {
   const ArTest({super.key});
