@@ -21,7 +21,10 @@ public class ArPlaceOnPlane : MonoBehaviour
         PlaceObjectByTouch();
         // UpdateCenterObject();
     }
-
+    
+    private void PlaceObjectCreate(){
+        
+    }
     private void PlaceObjectByTouch(){
         if(Input.touchCount>0){
             Touch touch = Input.GetTouch(0);
