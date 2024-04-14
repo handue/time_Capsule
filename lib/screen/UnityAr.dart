@@ -11,14 +11,19 @@ class UnityAr extends StatefulWidget {
 }
 
 class _UnityArState extends State<UnityAr> {
-  late UnityWidgetController _unityWidgetController;
   LocationController locationController = Get.find<LocationController>();
+  late UnityWidgetController _unityWidgetController;
 
   void onUnityCreated(controller) {
     _unityWidgetController = controller;
   }
 
-  void getCurrentPosition() {}
+  void searchCapsule() {
+    //위도 경도 DB로 보내기만 하면 알아서 주변 컨텐츠들은 가져올 수 있음.
+    // 그러니까 그냥 db로 현재 내 위치 보내는것만 하면 될듯. 
+    locationController.currentPosition.value?.longitude;
+    locationController.currentPosition.value?.latitude;
+  }
 
   @override
   void initState() {

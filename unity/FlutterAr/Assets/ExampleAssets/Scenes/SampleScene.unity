@@ -6522,6 +6522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 782628382}
   placeObject: {fileID: 1922680601}
+  rotationSpeed: 30
 --- !u!4 &1822642868
 Transform:
   m_ObjectHideFlags: 0
@@ -7404,6 +7405,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8277158053328706933, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5908163146266368092, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -7413,6 +7419,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Capsula
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6548708718069493396, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
         type: 3}
@@ -7462,6 +7473,11 @@ PrefabInstance:
     - target: {fileID: 6548708718069493396, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140302696541037975, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
+        type: 3}
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9140302696541037975, guid: 28d3c38ac8eed41a6b0bd3c71635586d,

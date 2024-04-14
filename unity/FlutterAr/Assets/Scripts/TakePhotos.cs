@@ -42,7 +42,7 @@ public class TakePhotos : MonoBehaviour
         // string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png";
         // string filepath = Path.Combine(Application.persistentDataPath,fileName);
         // File.WriteAllBytes(filepath, bytes);
-
+        
         // 이미지를 갤러리에 저장하는 함수 호출
         NativeGallery.SaveImageToGallery(image, "CapInNet", "My AR Image {0}.png", (success, path) => Debug.Log("Image saved: " + success + " to " + path));
         
