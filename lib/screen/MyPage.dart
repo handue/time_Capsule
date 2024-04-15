@@ -14,6 +14,7 @@ class MyPage extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
+
     var textWidth = width * 0.05;
     return Scaffold(
       body: SafeArea(

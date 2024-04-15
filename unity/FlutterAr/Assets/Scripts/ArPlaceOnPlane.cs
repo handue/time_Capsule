@@ -65,6 +65,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
         
         capsule.SetActive(true); 
+        
         Debug.Log(spawnPosition);    
         // }
     }
