@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:time_capsule/Model/PostModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:time_capsule/service/Services.dart';
+import 'package:time_capsule/service/PostService.dart';
 
 class PostController extends GetxController {
   RxList<PostModel> postList = RxList<PostModel>().obs();

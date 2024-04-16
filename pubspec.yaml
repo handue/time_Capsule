@@ -223,6 +223,7 @@ flutter:
       - images/profile.png
       - images/background.png
       - images/bear.png
+      - images/capsule.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

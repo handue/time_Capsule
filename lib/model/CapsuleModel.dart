@@ -47,5 +47,5 @@ class CapsuleModel {
         like = json['like'],
         nickname = json['nickname'],
         capsuleLike = json['capsuleLike'],
-        capsuleComment = json['capsuleComment'];
+        capsuleComment = List<dynamic>.from(json['capsuleComment']);
 }

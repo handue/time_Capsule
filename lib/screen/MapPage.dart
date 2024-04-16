@@ -55,7 +55,8 @@ class MapPage extends StatelessWidget {
               ))),
       body: Obx(() {
         return GoogleMap(
-          markers: Set<Marker>.from(locationController.markers),
+          markers: Set<Marker>.from(locationController.userMarkers.value
+              .union(locationController.capsuleMarkers.value)),
           circles: {
             Circle(
               circleId: const CircleId("1"),

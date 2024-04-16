@@ -5,7 +5,7 @@ import 'package:time_capsule/Model/PostModel.dart';
 
 class Services {
   static Future<List<PostModel>?> fetchPosts(String address) async {
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     var response = await http.get(Uri.parse(address));
     if (response.statusCode == 200) {
       var responseBody = response.body;

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -12,13 +11,17 @@ class LocationController extends GetxController {
 
   Rx<BitmapDescriptor?> markerIcon =
       Rx<BitmapDescriptor?>(BitmapDescriptor.defaultMarker);
-  late var markerLocation = [];
+
   RxSet<Circle> circle = RxSet();
 
-  RxSet<Marker> markers = RxSet();
+  RxSet<Marker> userMarkers = RxSet();
+  RxSet<Marker> capsuleMarkers = RxSet();
 
   double currentZoom = 18.0;
 
+  var userColor = Colors.blue;
+  var userBorderColor = Colors.white;
+  var capsuleColor = Colors.purple;
   // Rx을 통해서 변화 관찰하도록 하는것, null값 가능, position 에 대한 객체에 대해.
   GoogleMapController? mapController;
   // 이거 있어야 맵 컨트롤 된다네, 아래랑 같이 외워둬야 할듯, void 쓰는 이유는 객체로 주려면 어차피 이렇게 해야됨.
@@ -27,8 +30,8 @@ class LocationController extends GetxController {
   }
 
   final LocationSettings locationSettings = const LocationSettings(
-    accuracy: LocationAccuracy.bestForNavigation,
-    distanceFilter: 1, // 5미터 움직일때마다 정보 업데이트하기.
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 10, // 10미터 움직일때마다 정보 업데이트하기.
   );
 
   void onCameraMove(CameraPosition position) {
@@ -48,21 +51,37 @@ class LocationController extends GetxController {
             .listen((Position position) {
       currentPosition.value = position;
       print(currentPosition.value);
-      addMarker('images/profile.png', position);
+      addUserMarker('images/profile.png', position);
     });
   }
 
-  void addMarker(String address, Position position) async {
+  Future<void> addCapsuleMarker(String address) async {
+    final Marker capsuleMarker = Marker(
+      position: const LatLng(37.268950, 127.056357),
+      markerId: const MarkerId('2'),
+      icon: await customMarker.getMarkerIcon(
+          imagePath: address,
+          size: const Size(125.0, 125.0),
+          mainColor: capsuleColor,
+          borderColor: userBorderColor),
+    );
+    capsuleMarkers.assign(capsuleMarker);
+  }
+
+  Future<void> addUserMarker(String address, Position position) async {
     // final markerIcon =
     //     await customMarker.getMarkerIcon(address, const Size(150.0, 150.0));
-    final Marker marker = Marker(
+    final Marker userMarker = Marker(
         position: LatLng(currentPosition.value?.latitude ?? position.latitude,
             currentPosition.value?.longitude ?? position.longitude),
         markerId: const MarkerId('1'),
         icon: await customMarker.getMarkerIcon(
-            address, const Size(200.0, 200.0)));
+            imagePath: address,
+            size: const Size(125.0, 125.0),
+            mainColor: userColor,
+            borderColor: userBorderColor));
 
-    markers.assign(marker);
+    userMarkers.assign(userMarker);
     // 이거 add로 했었는데, add로 하면 여지껏 움직였던 좌표 달라질 때마다 Set이 인식하기엔 중복하는 거로 인식을 하질 못 해서
     // 여러개가 찍히더라. 근데 setState나 obx 안해놔서 화면 뒤로 갔다가 다시 하기로 했을 때 이 문제가 발견됐음.
   }
@@ -72,6 +91,7 @@ class LocationController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getLocationUpdates();
+    addCapsuleMarker('images/capsule.png');
   }
 
   @override

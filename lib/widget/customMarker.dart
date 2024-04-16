@@ -33,7 +33,10 @@ class customMarker {
   }
 
   static Future<BitmapDescriptor> getMarkerIcon(
-      String imagePath, Size size) async {
+      {required String imagePath,
+      required Size size,
+      required Color mainColor,
+      required Color borderColor}) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     //이 picutrerecorder는 그래픽 작업을 순차적으로 기록하는 클래스. 이를 통해 복잡한 그래픽 구성하고
     // 나중에 이를 이미지나 다른 미디어로 렌더링 가능
@@ -46,13 +49,13 @@ class customMarker {
 
     final Radius radius = Radius.circular(size.width / 2);
 
-    final Paint tagPaint = Paint()..color = Colors.blue;
-    const double tagWidth = 40.0;
+    final Paint tagPaint = Paint()..color = mainColor;
+    const double tagWidth = 30.0;
 
-    final Paint shadowPaint = Paint()..color = Colors.blue.withAlpha(100);
+    final Paint shadowPaint = Paint()..color = mainColor.withAlpha(100);
     const double shadowWidth = 15.0;
 
-    final Paint borderPaint = Paint()..color = Colors.white;
+    final Paint borderPaint = Paint()..color = borderColor;
     const double borderWidth = 3.0;
 
     const double imageOffset = shadowWidth + borderWidth;
@@ -101,9 +104,9 @@ class customMarker {
         tagPaint);
     TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
     //textDirection -> ltr 은 left to right, 즉 왼쪽에서 오른쪽으로 그리는거
-    textPainter.text = const TextSpan(
+    textPainter.text = TextSpan(
       text: '1',
-      style: TextStyle(fontSize: 20.0, color: Colors.white),
+      style: TextStyle(fontSize: 20.0, color: borderColor),
     );
 
     textPainter.layout();
