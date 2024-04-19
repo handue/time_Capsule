@@ -30,8 +30,8 @@ class LocationController extends GetxController {
   }
 
   final LocationSettings locationSettings = const LocationSettings(
-    accuracy: LocationAccuracy.high,
-    distanceFilter: 10, // 10미터 움직일때마다 정보 업데이트하기.
+    accuracy: LocationAccuracy.bestForNavigation,
+    distanceFilter: 5, // 5미터 움직일때마다 정보 업데이트하기.
   );
 
   void onCameraMove(CameraPosition position) {
