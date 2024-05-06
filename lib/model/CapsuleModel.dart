@@ -17,7 +17,7 @@ class CapsuleModel {
   late List<dynamic> capsuleComment;
 
   CapsuleModel({
-    required int cid,
+    int? cid,
     required String partyName,
     required String title,
     required String contents,
@@ -25,13 +25,15 @@ class CapsuleModel {
     required double longitude,
     required String locationName,
     required String createdAt,
-    required String updatedAt,
+    String? updatedAt,
     required String image,
     required int like,
     required String nickname,
     required bool capsuleLike,
     required List capsuleComment,
   });
+
+  // ! Json은 키 값이 항상 String임
 
   CapsuleModel.fromJson(Map<String, dynamic> json)
       : cid = json['cid'],

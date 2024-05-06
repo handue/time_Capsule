@@ -24,8 +24,7 @@ public class ArPlaceOnPlane : MonoBehaviour
        
         placeObject.SetActive(false);
         capsuleCreate();
-        
-    
+        // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯.
     }
 
     // Update is called once per frame
@@ -54,7 +53,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         Vector3 cameraForward = Camera.main.transform.forward;
         
         // 카메라로부터 일정 거리 내에서 랜덤한 위치 결정
-        float distance = Random.Range(1.0f, 5.0f); // 1m에서 3m 사이의 랜덤한 거리
+        float distance = Random.Range(1.0f, 5.0f); // 1m에서 5m 사이의 랜덤한 거리
         // Vector3 randomDirection = Random.insideUnitSphere; // 랜덤한 방향
         // Vector3 forwardDirection = Vector3.forward; // z축으로의 단위벡터
         Vector3 spawnPosition = cameraPosition + cameraForward * distance;

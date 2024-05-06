@@ -34,6 +34,7 @@ class AddPostPage extends StatelessWidget {
                 size: width * 0.09,
               ),
             ),
+            
             Padding(
               padding: const EdgeInsets.only(left: 22, right: 10),
               child: SizedBox(
