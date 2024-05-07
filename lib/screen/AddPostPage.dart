@@ -84,7 +84,7 @@ class AddPostPage extends StatelessWidget {
                         createdAt: DateTime.now(),
                         updatedAt: '',
                         image: 'images/background.png',
-                        like: 0,
+                        like: 3,
                         nickname: '홍준택탈모',
                         capsuleLike: false,
                         capsuleComment: ['홍준택 폼 미쳤다', '홍준택 그냥 미쳤다'],

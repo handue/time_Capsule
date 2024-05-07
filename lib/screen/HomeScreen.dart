@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   BottomButtonController bottomButtonController =
       Get.find<BottomButtonController>();
   PhotoController photoController = Get.put(PhotoController());
-  CapsuleController capsuleController = Get.put(CapsuleController());
+  
 
   // FIXME: 컨트롤러들 일단 홈에다 다 떄려박았는데 나중에 어디다가 넣을지 수정해도 좋을듯
 

@@ -6,6 +6,14 @@ import 'package:http/http.dart' as http;
 class CapsuleController extends GetxController {
   RxList<CapsuleModel?> capsuleList = RxList<CapsuleModel?>([]);
 
+  RxString capsuleTitle = ''.obs;
+  RxString capsuleCreatedTime = ''.obs;
+  RxString capsuleParty = ''.obs;
+  RxString capsuleContents = ''.obs;
+  RxString capsuleLocationName = ''.obs;
+  RxString capsuleNickname = ''.obs;
+  RxInt capsuleLike = 0.obs;
+
   static Future<CapsuleModel?> sendCapsule(
       String address, CapsuleModel capsule) async {
     var response = await http.post(Uri.parse(address),

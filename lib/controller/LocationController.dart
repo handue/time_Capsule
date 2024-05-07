@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:time_capsule/model/CapsuleModel.dart';
+import 'package:time_capsule/screen/CapsuleDetail.dart';
 import 'package:time_capsule/widget/customMarker.dart';
 
 class LocationController extends GetxController {
+  // CapsuleController capsuleController = Get.find<CapsuleController>();
   Rx<Position?> currentPosition = Rx<Position?>(null);
   StreamSubscription<Position>? positionStreamSubscription;
 
@@ -17,6 +20,8 @@ class LocationController extends GetxController {
 
   RxSet<Marker> userMarkers = RxSet();
   RxSet<Marker> capsuleMarkers = RxSet();
+
+  CapsuleDetail capsuleDetail = CapsuleDetail();
 
   double currentZoom = 18.0;
 
@@ -71,8 +76,25 @@ class LocationController extends GetxController {
     capsuleMarkers.assign(capsuleMarker);
   }
 
+  // ! FIXME: 이거 나중에 다 수정해야함. 지금은 임의로 값 넣은값 찾아서 게시글 보여주도록 하는거임. 위에 addCapsuleMarker로 만든거는 터치해도 아무것도 안된다잉.
+
+  // void capsuleOntap(CapsuleModel capsule) {
+  //   print('테스트 캡슐 터치!');
+  //   // todo: 나중에는 capsule의 아이디 찾아서 페이지 보여주도록 해야할듯. 일단은 제목이나 내용 같은 것들 다 CapsuleController에다가 박아놓음
+  //   capsuleController.capsuleContents.value = capsule.contents;
+  //   capsuleController.capsuleLike.value = capsule.like;
+  //   capsuleController.capsuleLocationName.value = capsule.locationName;
+  //   capsuleController.capsuleTitle.value = capsule.title;
+  //   capsuleController.capsuleParty.value = capsule.partyName;
+  //   capsuleController.capsuleNickname.value = capsule.nickname;
+  //   capsuleController.capsuleCreatedTime.value =
+  //       capsule.createdAt.toIso8601String();
+  //   Get.to(() => CapsuleDetail());
+  // }
+
   Future<void> testCapsuleMarker(CapsuleModel capsule, int i) async {
     final Marker capsuleMarker$i = Marker(
+      onTap: () => capsuleDetail.capsuleOntap(capsule),
       // ! FIXME: 나중엔 MarkerId 어차피 자동으로 백에서 값 올려줘서 굳이 i 안 넣어도 되는데 지금은 그냥 테스트 차원에서 넣음.
 
       position: LatLng(capsule.latitude, capsule.longitude),

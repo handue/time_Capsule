@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:time_capsule/controller/CapsuleController.dart';
 
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PostController.dart';
@@ -13,6 +14,7 @@ void main() {
   Get.lazyPut(() => LocationController());
   Get.lazyPut(() => PostController());
   Get.lazyPut(() => BottomButtonController());
+  Get.lazyPut(() => CapsuleController());
 }
 
 class MyApp extends StatefulWidget {

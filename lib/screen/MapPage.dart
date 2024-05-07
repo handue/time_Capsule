@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
+import 'package:time_capsule/model/CapsuleModel.dart';
 import 'package:time_capsule/screen/ArCamera.dart';
 import 'package:time_capsule/screen/UnityAr.dart';
 import 'package:time_capsule/widget/customMarker.dart';
@@ -56,6 +57,9 @@ class MapPage extends StatelessWidget {
               ))),
       body: Obx(() {
         return GoogleMap(
+          // onTap: (latLng){
+          //   CapsuleModel touchedCapsule =
+          // },
           markers: Set<Marker>.from(locationController.userMarkers.value
               .union(locationController.capsuleMarkers.value)),
           circles: {
