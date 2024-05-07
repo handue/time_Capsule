@@ -35,6 +35,23 @@ class CapsuleModel {
 
   // ! Json은 키 값이 항상 String임
 
+  Map<String, dynamic> toJson() => {
+        'cid': cid,
+        'partyName': partyName,
+        'title': title,
+        'contents': contents,
+        'latitude': latitude,
+        'longitude': longitude,
+        'locationName': locationName,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt,
+        'image': image,
+        'like': like,
+        'nickname': nickname,
+        'capsuleLike': capsuleLike,
+        'capsuleComment': capsuleComment,
+      };
+
   CapsuleModel.fromJson(Map<String, dynamic> json)
       : cid = json['cid'],
         partyName = json['partyName'],
