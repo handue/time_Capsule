@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:time_capsule/controller/CapsuleController.dart';
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/Model/PostModel.dart';
@@ -20,6 +21,9 @@ class HomeScreen extends StatelessWidget {
   BottomButtonController bottomButtonController =
       Get.find<BottomButtonController>();
   PhotoController photoController = Get.put(PhotoController());
+  CapsuleController capsuleController = Get.put(CapsuleController());
+
+  // FIXME: 컨트롤러들 일단 홈에다 다 떄려박았는데 나중에 어디다가 넣을지 수정해도 좋을듯
 
   // initialBinding이 전체 전역에서 사용되는 controller 선언할 때 좋다고 하는데, 아직은 뭔 소린지 모르겠음.
 

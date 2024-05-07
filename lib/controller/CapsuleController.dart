@@ -1,12 +1,12 @@
 import 'dart:convert';
-
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:time_capsule/model/CapsuleModel.dart';
 import 'package:http/http.dart' as http;
 
 class CapsuleController extends GetxController {
+  RxList<CapsuleModel?> capsuleList = RxList<CapsuleModel?>([]);
 
-  Future<CapsuleModel?> sendCapsule(
+  static Future<CapsuleModel?> sendCapsule(
       String address, CapsuleModel capsule) async {
     var response = await http.post(Uri.parse(address),
         headers: <String, String>{
@@ -29,38 +29,38 @@ class CapsuleController extends GetxController {
 
 // Todo: Test용 capsuleCreate
 // * 이거 근데 폼 직접 입력 받은 값으로 생성해야함.
-
-CapsuleModel capsuleCreate({
-  int? cid,
-  required String partyName,
-  required String title,
-  required String contents,
-  required double latitude,
-  required double longitude,
-  required String locationName,
-  required String createdAt,
-  String? updatedAt,
-  required String image,
-  required int like,
-  required String nickname,
-  required bool capsuleLike,
-  required List capsuleComment,
-}) {
-  var newCapsule = CapsuleModel(
-      partyName: partyName,
-      title: title,
-      contents: contents,
-      latitude: latitude,
-      longitude: longitude,
-      locationName: locationName,
-      createdAt: createdAt,
-      image: image,
-      like: like,
-      nickname: nickname,
-      capsuleLike: capsuleLike,
-      capsuleComment: capsuleComment);
-  return newCapsule;
-}
+// ! 아무리 생각해도 capsuleCreate 상관 없이 그냥 바로 model 생성하는게 나은듯. 
+// CapsuleModel capsuleCreate({
+//   int? cid,
+//   required String partyName,
+//   required String title,
+//   required String contents,
+//   required double latitude,
+//   required double longitude,
+//   required String locationName,
+//   required String createdAt,
+//   String? updatedAt,
+//   required String image,
+//   required int like,
+//   required String nickname,
+//   required bool capsuleLike,
+//   required List capsuleComment,
+// }) {
+//   var newCapsule = CapsuleModel(
+//       partyName: partyName,
+//       title: title,
+//       contents: contents,
+//       latitude: latitude,
+//       longitude: longitude,
+//       locationName: locationName,
+//       createdAt: createdAt,
+//       image: image,
+//       like: like,
+//       nickname: nickname,
+//       capsuleLike: capsuleLike,
+//       capsuleComment: capsuleComment);
+//   return newCapsule;
+// }
 
 // final capsuleController = CapsuleController();
 // CapsuleModel newCapsule = CapsuleModel(

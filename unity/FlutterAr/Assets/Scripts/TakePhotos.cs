@@ -46,8 +46,7 @@ public class TakePhotos : MonoBehaviour
         
         // 이미지를 갤러리에 저장하는 함수 호출
         NativeGallery.SaveImageToGallery(image, "CapInNet", "My AR Image {0}.png", (success, path) => Debug.Log("Image saved: " + success + " to " + path));
-        sendToFlutter("capsuleCreate");
-        
+        sendToFlutter("addPost");
         Destroy(rt);
         Destroy(image);
     }

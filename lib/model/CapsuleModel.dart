@@ -1,36 +1,39 @@
 import 'package:geolocator/geolocator.dart';
 
 class CapsuleModel {
-  late int cid;
-  late String partyName;
-  late String title;
-  late String contents;
-  late double latitude;
-  late double longitude;
-  late String locationName;
-  late DateTime createdAt;
-  late DateTime updatedAt;
-  late String image;
-  late int like;
-  late String nickname;
-  late bool capsuleLike;
+  late int? cid;
+  final String partyName;
+  final String title;
+  final String contents;
+  final double latitude;
+  final double longitude;
+  final String locationName;
+  final DateTime createdAt;
+  late DateTime? updatedAt;
+  // late String image;
+  final dynamic image;
+  //! FIXME: 이거 나중에 dynamic이 아니라 string으로 바꿔야함. 이미지는 그냥 내가 임의로 실험하려고 dynamic으로 했음.
+  final int like;
+  final String nickname;
+  final bool capsuleLike;
   late List<dynamic> capsuleComment;
 
   CapsuleModel({
     int? cid,
-    required String partyName,
-    required String title,
-    required String contents,
-    required double latitude,
-    required double longitude,
-    required String locationName,
-    required String createdAt,
+    required this.partyName,
+    required this.title,
+    required this.contents,
+    required this.latitude,
+    required this.longitude,
+    required this.locationName,
+    required this.createdAt,
     String? updatedAt,
-    required String image,
-    required int like,
-    required String nickname,
-    required bool capsuleLike,
-    required List capsuleComment,
+    required this.image,
+    //! FIXME: 이거 나중에 dynamic이 아니라 string으로 바꿔야함. 이미지는 그냥 내가 임의로 실험하려고 dynamic으로 했음.
+    required this.like,
+    required this.nickname,
+    required this.capsuleLike,
+    required this.capsuleComment,
   });
 
   // ! Json은 키 값이 항상 String임

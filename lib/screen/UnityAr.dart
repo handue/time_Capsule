@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/LocationController.dart';
+import 'package:time_capsule/screen/AddPostPage.dart';
 
 class UnityAr extends StatefulWidget {
   const UnityAr({super.key});
@@ -14,7 +15,7 @@ class _UnityArState extends State<UnityAr> {
   LocationController locationController = Get.find<LocationController>();
   late UnityWidgetController _unityWidgetController;
 
-  void onUnityCreated(controller) {
+  void onUnityCreated(UnityWidgetController controller) {
     _unityWidgetController = controller;
   }
 
@@ -23,6 +24,12 @@ class _UnityArState extends State<UnityAr> {
     // 그러니까 그냥 db로 현재 내 위치 보내는것만 하면 될듯.
     locationController.currentPosition.value?.longitude;
     locationController.currentPosition.value?.latitude;
+  }
+
+  void onUnityMessage(message) {
+    if (message == "addPost") {
+      Get.to(() => AddPostPage());
+    }
   }
 
   @override
@@ -42,6 +49,7 @@ class _UnityArState extends State<UnityAr> {
   Widget build(BuildContext context) {
     return UnityWidget(
       onUnityCreated: onUnityCreated,
+      onUnityMessage: onUnityMessage,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:time_capsule/model/CapsuleModel.dart';
 import 'package:time_capsule/widget/customMarker.dart';
 
 class LocationController extends GetxController {
@@ -55,6 +56,8 @@ class LocationController extends GetxController {
     });
   }
 
+  // ! 이거 내가 임의로 설정한 custom Marker넣는 코드
+
   Future<void> addCapsuleMarker(String address) async {
     final Marker capsuleMarker = Marker(
       position: const LatLng(37.268950, 127.056357),
@@ -66,6 +69,31 @@ class LocationController extends GetxController {
           borderColor: userBorderColor),
     );
     capsuleMarkers.assign(capsuleMarker);
+  }
+
+  Future<void> testCapsuleMarker(CapsuleModel capsule, int i) async {
+    final Marker capsuleMarker$i = Marker(
+      // ! FIXME: 나중엔 MarkerId 어차피 자동으로 백에서 값 올려줘서 굳이 i 안 넣어도 되는데 지금은 그냥 테스트 차원에서 넣음.
+
+      position: LatLng(capsule.latitude, capsule.longitude),
+      markerId: MarkerId("$i"),
+      icon: await customMarker.getMarkerIcon(
+          imagePath: capsule.image,
+          size: const Size(125.0, 125.0),
+          mainColor: capsuleColor,
+          borderColor: userBorderColor),
+    );
+    capsuleMarkers.add(capsuleMarker$i);
+  }
+
+  Future<void> createCapsuleMarkers(List<CapsuleModel?> capsuleList) async {
+    for (int i = 0; i <= capsuleList.length; i++) {
+      int j = 3;
+      if (capsuleList[i] != null) {
+        await testCapsuleMarker(capsuleList[i]!, j);
+      }
+      j++;
+    }
   }
 
   Future<void> addUserMarker(String address, Position position) async {

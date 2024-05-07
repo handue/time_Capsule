@@ -9,8 +9,8 @@ import 'package:time_capsule/service/PostService.dart';
 class PostController extends GetxController {
   RxList<PostModel> postList = RxList<PostModel>().obs();
   RxString postText = ''.obs;
-
-  void sendData() async {}
+  RxString postTitle = ''.obs;
+  RxString postLocation = ''.obs;
 
   void fetchData() async {
     var posts = await Services.fetchPosts(
