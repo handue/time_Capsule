@@ -9,6 +9,8 @@ class AddPostPage extends StatelessWidget {
   AddPostPage({super.key});
   PostController postController = Get.find<PostController>();
 
+  // ! 준택이거 받아오기 이전 버전
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -34,7 +36,6 @@ class AddPostPage extends StatelessWidget {
                 size: width * 0.09,
               ),
             ),
-            
             Padding(
               padding: const EdgeInsets.only(left: 22, right: 10),
               child: SizedBox(
