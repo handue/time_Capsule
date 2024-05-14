@@ -39,10 +39,10 @@ class _UnityArState extends State<UnityAr> {
   }
   // ! 5월14일 유니티 수신 오류 - 오후 10시 37분 해결완료
   // FIXME: 유니티로 메시지 전송은 되는데, 유니티에서 수신이 안됨.
- 
+
   void sendUnityMessage() {
     for (int i = 0; i < capsuleController.nearCapsuleList.value.length; i++) {
-      _unityWidgetController.postMessage("CapsuleSpawner", "receiveMessage",
+      _unityWidgetController.postMessage('CapsuleSpawner', "receiveMessage",
           "${capsuleController.nearCapsuleList.value[i]?.cid}");
       print('유니티 메시지 전송 완료');
     }

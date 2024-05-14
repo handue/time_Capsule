@@ -51,7 +51,6 @@ public class ArPlaceOnPlane : MonoBehaviour
     }
 
     public void receiveMessage(string message){
-        
         Debug.Log("플러터에서 받은 메시지:" + message);
         receivedCid = int.Parse(message);
         Debug.Log(receivedCid);
@@ -84,6 +83,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         capsule.SetActive(true); 
         
         Debug.Log(spawnPosition);    
+        Debug.Log("캡슐 생성 완료");
         // }
     }
 
