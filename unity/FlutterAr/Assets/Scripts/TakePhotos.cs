@@ -45,7 +45,7 @@ public class TakePhotos : MonoBehaviour
         // File.WriteAllBytes(filepath, bytes);
         
         // 이미지를 갤러리에 저장하는 함수 호출
-        NativeGallery.SaveImageToGallery(image, "CapInNet", "My AR Image {0}.png", (success, path) => Debug.Log("Image saved: " + success + " to " + path));
+        NativeGallery.SaveImageToGallery(image, "CapInNet", "My AR Image.png", (success, path) => Debug.Log("Image saved: " + success + " to " + path));
         sendToFlutter("addPost");
         Destroy(rt);
         Destroy(image);
@@ -54,6 +54,6 @@ public class TakePhotos : MonoBehaviour
     public void sendToFlutter(string message){
         UnityMessageManager.Instance.SendMessageToFlutter(message);
         // TODO: 플러터로 전송해서 구글맵에 캡슐 만들라고 하는거임.
-        // 근데 지금 핸드폰 연결 안 해서 모르겠는데 사진 찍을 때 캡슐이 보이면 안 보이도록 하는 옵션도 넣어야할듯. bool true false로 하면 될거같음 그건.
+        // 근데 지금 핸드폰 연결 안 해서 모르겠는데 사진 찍을 때 캡슐이 보이면 안 보이도록 하는 옵션도 넣어야할듯. bool true false로 하면 될거같음 그건. 제일 나중에 하자 이건.
     }
 }

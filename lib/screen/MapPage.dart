@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,7 +8,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/model/CapsuleModel.dart';
-import 'package:time_capsule/screen/ArCamera.dart';
 import 'package:time_capsule/screen/UnityAr.dart';
 import 'package:time_capsule/widget/customMarker.dart';
 
@@ -42,9 +42,16 @@ class MapPage extends StatelessWidget {
                   // photoController.cameraPick();
                   Get.to(() => const UnityAr());
                 },
-                icon: Icon(
-                  CupertinoIcons.camera_on_rectangle_fill,
-                  size: width * 0.1,
+                icon: IconButton(
+                  icon: Icon(
+                    CupertinoIcons.camera_on_rectangle_fill,
+                    size: width * 0.1,
+                  ),
+                  onPressed: () {
+                    Get.to(() => const UnityAr());
+                    // todo: 그리고 음, 근방 캡슐 가져오도록 서버에 요청해야 하는데, 지금은 서버가 안 되니까 일단은 보류하고 다르게 해야할듯. 그러려면 일단 캡슐 내가 임의로 작성한거 넘겨주고 그거 눌렀을때 유니티에서 플러터 capsule detail 오픈하도록 해야겠다.
+                    
+                  },
                 ))
           ],
           leading: IconButton(

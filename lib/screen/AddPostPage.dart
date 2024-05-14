@@ -73,8 +73,11 @@ class AddPostPage extends StatelessWidget {
                       // CapsuleController.sendCapsule();
 
                       //* FIXME: 지금은 내가 임의로 입력값 넣어줘서 캡슐 만들고, 그거를 작성하기 눌렀을 때, 구글맵에 만들어지도록 해야할듯.
+                      // ! 구글맵에 만들어지도록은 했늗네, 나중에 입력값은 서버로부터 받아오도록 하거나 입력값 직접 프론트에서 받고 그걸 서버로 넘겨주고 구글맵에 캡슐 만들도록 해야할듯.
+                      //*  5월 14일 cid 일단 5로 임시로 냈음. 그래야 구분할수 있으니께
 
-                      var newCapsule = CapsuleModel(
+                      capsuleController.newCapsule.value = CapsuleModel(
+                        cid: 5,
                         partyName: "준택이와친구들",
                         title: "암온어준택",
                         contents: "홍준택은 ..",
@@ -89,8 +92,9 @@ class AddPostPage extends StatelessWidget {
                         capsuleLike: false,
                         capsuleComment: ['홍준택 폼 미쳤다', '홍준택 그냥 미쳤다'],
                       );
-                      print("새로운 캡슐 $newCapsule");
-                      capsuleController.capsuleList.add(newCapsule);
+                      print("새로운 캡슐 ${capsuleController.newCapsule.value}");
+                      capsuleController.capsuleList
+                          .add(capsuleController.newCapsule.value);
                       print("캡슐컨트롤러 캡슐 리스트: ${capsuleController.capsuleList}");
 
                       locationController.createCapsuleMarkers(
@@ -98,6 +102,10 @@ class AddPostPage extends StatelessWidget {
 
                       // TODO: 음 이제 캡슐 생성까지 완료했으니까, 이거 구글맵으로 이동시킨 다음에 구글맵에서 터치 했을때 캡슐 정보 뜨게 해야할듯.
                       // TODO: 흠.. 이거를 이제 구글맵으로 넘겨줘서 구글맵에서 그림 그리도록 해야되는데 흐으으음..
+                      // TODO: 5월 13일, 위에거 전부 다 구현했음.  이제 해야될거는 내 근방에 있는 캡슐들을 거리순으로 AR 카메라에 뜨게 하고, AR카메라에서도 캡슐 눌렀을 때 캡슐에 대한 정보 뜨도록 하는거. 그러려면 카메라 버튼 눌렀을때, 현재 위치 보내주고 현재 위치 주변 500m내에 있는 캡슐들 카메라에 뜨게 해줘야할듯. 그래서 지금은 카메라 버튼 눌렀을때 이용될 함수를 만들어야함.
+
+                      capsuleController.nearCapsuleList
+                          .add(capsuleController.newCapsule.value);
 
                       Get.back();
                     },

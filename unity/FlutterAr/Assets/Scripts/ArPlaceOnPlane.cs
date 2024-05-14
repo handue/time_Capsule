@@ -12,19 +12,24 @@ public class ArPlaceOnPlane : MonoBehaviour
 
     public ARRaycastManager arRaycaster;
     public GameObject placeObject;
-    GameObject spawnObject;
+    // GameObject spawnObject;
     public GameObject capsule;
 
     public List<GameObject> capsuleList = new List<GameObject>();
 
     public float rotationSpeed = 30f;
+    
+    UnityMessageReceiver unityMessageReceiver;
+    // private int receivedCid;
     // Start is called before the first frame update
+
+    // private int capsuleCid;
     void Start()
     {  
        
         placeObject.SetActive(false);
-        capsuleCreate();
-        // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯.
+        capsuleCreate(unityMessageReceiver.receivedCid);
+        // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
     }
 
     // Update is called once per frame
@@ -44,8 +49,10 @@ public class ArPlaceOnPlane : MonoBehaviour
         
     }
 
-
-    private void capsuleCreate(){
+    private void capsuleCreate(int cid){
+        
+        // receivedCid = cid;
+        
         // if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
     // {
         // 카메라의 현재 위치와 방향을 기준으로 함
@@ -63,6 +70,9 @@ public class ArPlaceOnPlane : MonoBehaviour
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
         
+        capsule.GetComponent<CapsuleDetail>().assignCid(cid);
+    
+
         capsule.SetActive(true); 
         
         Debug.Log(spawnPosition);    

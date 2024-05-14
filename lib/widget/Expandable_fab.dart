@@ -6,8 +6,6 @@ import 'package:time_capsule/controller/FabController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/AddPostPage.dart';
-import 'package:time_capsule/screen/ArCamera.dart';
-import 'package:time_capsule/screen/ArTest.dart';
 import 'package:time_capsule/screen/UnityAr.dart';
 
 const Duration _duration = Duration(milliseconds: 275);
