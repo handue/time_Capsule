@@ -26,15 +26,16 @@ public class ArPlaceOnPlane : MonoBehaviour
     // private int capsuleCid;
     void Start()
     {  
-       
+        
         placeObject.SetActive(false);
-        capsuleCreate(unityMessageReceiver.receivedCid);
+        unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
     }
 
     // Update is called once per frame
     void Update()
     {   
+        // capsuleCreate(unityMessageReceiver.receivedCid);
         // PlaceObjectByTouch();
         rotate();
       
@@ -49,7 +50,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         
     }
 
-    private void capsuleCreate(int cid){
+    public void capsuleCreate(int cid){
         
         // receivedCid = cid;
         

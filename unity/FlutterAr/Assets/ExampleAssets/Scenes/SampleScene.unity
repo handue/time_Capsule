@@ -6522,6 +6522,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 782628382}
   placeObject: {fileID: 1922680601}
+  capsule: {fileID: 0}
+  capsuleList: []
   rotationSpeed: 30
 --- !u!4 &1822642868
 Transform:
@@ -7489,7 +7491,11 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: -3167299574701864104, guid: 28d3c38ac8eed41a6b0bd3c71635586d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 28d3c38ac8eed41a6b0bd3c71635586d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1922680602}
   m_SourcePrefab: {fileID: 100100000, guid: 28d3c38ac8eed41a6b0bd3c71635586d, type: 3}
 --- !u!1 &1922680601 stripped
 GameObject:
@@ -7497,6 +7503,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1922680600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1922680602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922680601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d855e1c3a9454521b342709aec84759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &212175866532230322
 Transform:
   m_ObjectHideFlags: 0

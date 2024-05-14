@@ -37,22 +37,20 @@ class MapPage extends StatelessWidget {
           elevation: 0.0,
           actions: [
             IconButton(
-                onPressed: () {
-                  // PhotoController photoController = Get.find<PhotoController>();
-                  // photoController.cameraPick();
-                  Get.to(() => const UnityAr());
-                },
-                icon: IconButton(
-                  icon: Icon(
-                    CupertinoIcons.camera_on_rectangle_fill,
-                    size: width * 0.1,
-                  ),
-                  onPressed: () {
-                    Get.to(() => const UnityAr());
-                    // todo: 그리고 음, 근방 캡슐 가져오도록 서버에 요청해야 하는데, 지금은 서버가 안 되니까 일단은 보류하고 다르게 해야할듯. 그러려면 일단 캡슐 내가 임의로 작성한거 넘겨주고 그거 눌렀을때 유니티에서 플러터 capsule detail 오픈하도록 해야겠다.
-                    
-                  },
-                ))
+              icon: Icon(
+                CupertinoIcons.camera_on_rectangle_fill,
+                size: width * 0.1,
+              ),
+              onPressed: () {
+                // PhotoController photoController = Get.find<PhotoController>();
+                // photoController.cameraPick();
+                Get.to(() => const UnityAr());
+                // todo: 그리고 음, 근방 캡슐 가져오도록 서버에 요청해야 하는데, 지금은 서버가 안 되니까 일단은 보류하고 다르게 해야할듯. 그러려면 일단 캡슐 내가 임의로 작성한거 넘겨주고 그거 눌렀을때 유니티에서 플러터 capsule detail 오픈하도록 해야겠다. 
+
+
+                // FIXME:  이때 cid 넘겨줘야할듯. 지금 그냥 unityar들어가는건 잘 되는데,
+              },
+            )
           ],
           leading: IconButton(
               onPressed: () {
@@ -109,9 +107,9 @@ class MapPage extends StatelessWidget {
             locationController.getLocationUpdates();
             locationController.updateCameraPosition(
                 locationController.currentPosition.value!);
-            print(locationController.currentPosition.value);
-            print(locationController.currentPosition.value?.latitude);
-            print(locationController.currentPosition.value?.longitude);
+            // print(locationController.currentPosition.value);
+            // print(locationController.currentPosition.value?.latitude);
+            // print(locationController.currentPosition.value?.longitude);
             // 이게 현재 에뮬레이터ㅔㅇ선 location을 얻을 수가 없어서, postion 이 null처리 되는데, 그럼 동작하는지 확인 못 하니까 updateCameraPostion 넣어줌. 나중엔 뺴야함.
           },
           child: Icon(Icons.my_location_outlined,

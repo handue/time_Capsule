@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 
 class CapsuleModel {
-  late int? cid;
+  late int cid;
   final String partyName;
   final String title;
   final String contents;

@@ -104,9 +104,24 @@ class AddPostPage extends StatelessWidget {
                       // TODO: 흠.. 이거를 이제 구글맵으로 넘겨줘서 구글맵에서 그림 그리도록 해야되는데 흐으으음..
                       // TODO: 5월 13일, 위에거 전부 다 구현했음.  이제 해야될거는 내 근방에 있는 캡슐들을 거리순으로 AR 카메라에 뜨게 하고, AR카메라에서도 캡슐 눌렀을 때 캡슐에 대한 정보 뜨도록 하는거. 그러려면 카메라 버튼 눌렀을때, 현재 위치 보내주고 현재 위치 주변 500m내에 있는 캡슐들 카메라에 뜨게 해줘야할듯. 그래서 지금은 카메라 버튼 눌렀을때 이용될 함수를 만들어야함.
 
-                      capsuleController.nearCapsuleList
-                          .add(capsuleController.newCapsule.value);
+                      // ! 5월14일
+                      //FIXME: 캡슐컨트롤러의 cid를 유니티로 넘기는게 안됨. 근데 그냥 숫자 3 넘겼을때도 유니티에서 받기는 하는데, 캡슐 생성을 못하는거 보니까 유니티랑 플러터 둘 다에 문제 있는듯.
 
+                      // capsuleController.nearCapsuleList
+                      //     .assign(capsuleController.newCapsule.value);
+                      // print(
+                      //     ' 새로운 캡슐: ${capsuleController.newCapsule.value!.cid}');
+                      // print(
+                      //     ' 주변 캡슐 리스트 : ${capsuleController.nearCapsuleList.value}');
+                      // print('ㅎㅇ');
+                      // print(
+                      //     '메시지 보낼거 0번 인덱스: ${capsuleController.nearCapsuleList.value[0]?.cid ?? ''}');
+                      // for (int i = 0;
+                      //     i < capsuleController.nearCapsuleList.value.length;
+                      //     i++) {
+                      //   print(
+                      //       '메시지 반복문으로 보낼거: ${capsuleController.nearCapsuleList.value[i]?.cid}');
+                      // }
                       Get.back();
                     },
                     child: Text(

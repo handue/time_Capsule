@@ -5,8 +5,10 @@ import 'package:http/http.dart' as http;
 
 class CapsuleController extends GetxController {
   RxList<CapsuleModel?> capsuleList = RxList<CapsuleModel?>([]);
-  //! 위에 capsuleList 왜 만들어놨더라. 아래는 근처 500m내에 있는 캡슐들 가져오려고 한거. 위에는 뭐징.. 일단 냅두자 아 그 파티 캡슐들 모아두려고 하는건가
+  //! 위에 capsuleList 왜 만들어놨더라. 아래는 근처 500m내에 있는 캡슐들 가져오려고 한거. 위에는 뭐징.. 일단 냅두자 아 그 파티 캡슐들 모아두려고 하는건가 그거 아니고 마커들 생성할때 쓰려고 냅둔거네
   RxList<CapsuleModel?> nearCapsuleList = RxList<CapsuleModel?>([]);
+  Rx<CapsuleModel?> newCapsule = Rx<CapsuleModel?>(null);
+  
 
   RxString capsuleTitle = ''.obs;
   RxString capsuleCreatedTime = ''.obs;
@@ -15,7 +17,6 @@ class CapsuleController extends GetxController {
   RxString capsuleLocationName = ''.obs;
   RxString capsuleNickname = ''.obs;
   RxInt capsuleLike = 0.obs;
-  Rx<CapsuleModel?> newCapsule = Rx<CapsuleModel?>(null);
 
   static Future<CapsuleModel?> sendCapsule(
       String address, CapsuleModel capsule) async {
