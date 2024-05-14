@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 
 class CapsuleModel {
-  late int cid;
+  late int? cid;
   final String partyName;
   final String title;
   final String contents;
@@ -19,7 +19,7 @@ class CapsuleModel {
   late List<dynamic> capsuleComment;
 
   CapsuleModel({
-    int? cid,
+    this.cid,
     required this.partyName,
     required this.title,
     required this.contents,

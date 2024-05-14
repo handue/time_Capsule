@@ -106,22 +106,22 @@ class AddPostPage extends StatelessWidget {
 
                       // ! 5월14일
                       //FIXME: 캡슐컨트롤러의 cid를 유니티로 넘기는게 안됨. 근데 그냥 숫자 3 넘겼을때도 유니티에서 받기는 하는데, 캡슐 생성을 못하는거 보니까 유니티랑 플러터 둘 다에 문제 있는듯.
+                      //! 5월14일 9시56분 cid 넘기는거 고쳤음. 모델링 문제였음.
+                      capsuleController.nearCapsuleList
+                          .assign(capsuleController.newCapsule.value);
+                      // print(
+                      //     ' 새로운 캡슐: ${capsuleController.newCapsule?.cid}');
+                      print(
+                          ' 주변 캡슐 리스트 : ${capsuleController.nearCapsuleList}');
 
-                      // capsuleController.nearCapsuleList
-                      //     .assign(capsuleController.newCapsule.value);
-                      // print(
-                      //     ' 새로운 캡슐: ${capsuleController.newCapsule.value!.cid}');
-                      // print(
-                      //     ' 주변 캡슐 리스트 : ${capsuleController.nearCapsuleList.value}');
-                      // print('ㅎㅇ');
-                      // print(
-                      //     '메시지 보낼거 0번 인덱스: ${capsuleController.nearCapsuleList.value[0]?.cid ?? ''}');
-                      // for (int i = 0;
-                      //     i < capsuleController.nearCapsuleList.value.length;
-                      //     i++) {
-                      //   print(
-                      //       '메시지 반복문으로 보낼거: ${capsuleController.nearCapsuleList.value[i]?.cid}');
-                      // }
+                      print(
+                          '메시지 보낼거 0번 인덱스: ${capsuleController.nearCapsuleList.value[0]?.cid ?? ''}');
+                      for (int i = 0;
+                          i < capsuleController.nearCapsuleList.value.length;
+                          i++) {
+                        print(
+                            '메시지 반복문으로 보낼거: ${capsuleController.nearCapsuleList.value[i]?.cid}');
+                      }
                       Get.back();
                     },
                     child: Text(

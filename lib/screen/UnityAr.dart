@@ -37,6 +37,8 @@ class _UnityArState extends State<UnityAr> {
       Get.to(() => AddPostPage());
     }
   }
+  // ! 5월14일 유니티 수신 오류
+  // FIXME: 유니티로 메시지 전송은 되는데, 유니티에서 수신이 안됨. 
 
   void sendUnityMessage() {
     for (int i = 0; i < capsuleController.nearCapsuleList.value.length; i++) {
