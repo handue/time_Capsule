@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-
+using System.Linq;
 
 public class ArPlaceOnPlane : MonoBehaviour
 {   
@@ -23,12 +23,12 @@ public class ArPlaceOnPlane : MonoBehaviour
     // private int receivedCid;
     // Start is called before the first frame update
 
-    // private int capsuleCid;
+    private int receivedCid;
     void Start()
     {  
         
         placeObject.SetActive(false);
-        unityMessageReceiver = GetComponent<UnityMessageReceiver>();
+        // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
     }
 
@@ -50,6 +50,13 @@ public class ArPlaceOnPlane : MonoBehaviour
         
     }
 
+    public void receiveMessage(string message){
+        
+        Debug.Log("플러터에서 받은 메시지:" + message);
+        receivedCid = int.Parse(message);
+        Debug.Log(receivedCid);
+        capsuleCreate(receivedCid);
+    }
     public void capsuleCreate(int cid){
         
         // receivedCid = cid;
@@ -117,3 +124,4 @@ public class ArPlaceOnPlane : MonoBehaviour
     // }
 
 }
+
