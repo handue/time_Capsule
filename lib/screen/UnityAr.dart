@@ -42,9 +42,16 @@ class _UnityArState extends State<UnityAr> {
 
   void sendUnityMessage() {
     for (int i = 0; i < capsuleController.nearCapsuleList.value.length; i++) {
-      _unityWidgetController.postMessage('CapsuleSpawner', "receiveMessage",
-          "${capsuleController.nearCapsuleList.value[i]?.cid}");
-      print('유니티 메시지 전송 완료');
+      String sendMessage =
+          "${capsuleController.nearCapsuleList.value[i]?.cid},${capsuleController.nearCapsuleList.value[i]?.title}";
+
+      // _unityWidgetController.postMessage('CapsuleSpawner', "receiveCidMessage",
+      //     "${capsuleController.nearCapsuleList.value[i]?.cid}");
+
+      _unityWidgetController.postMessage(
+          'CapsuleSpawner', "receiveMessage", sendMessage);
+
+      print('유니티 메시지 전송 완료: $sendMessage');
     }
   }
 

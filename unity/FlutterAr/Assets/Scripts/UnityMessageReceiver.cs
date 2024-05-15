@@ -21,12 +21,12 @@ public class UnityMessageReceiver : MonoBehaviour
         
     }
 
-    public void receiveMessage(string message){
+    // public void receiveMessage(string message){
         
-        Debug.Log("플러터에서 받은 메시지:" + message);
-        receivedCid = int.Parse(message);
-        arPlaceOnPlane.capsuleCreate(receivedCid);
-    }
+    //     Debug.Log("플러터에서 받은 메시지:" + message);
+    //     receivedCid = int.Parse(message);
+    //     arPlaceOnPlane.capsuleCreate(receivedCid);
+    // }
     
    
 }

@@ -4,11 +4,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using System.Linq;
+using UnityEngine.Android;
 
 public class ArPlaceOnPlane : MonoBehaviour
 {   
 
-    
+    // TODO: 5월15일에 해야할거, 이제 유니티에서 캡슐 눌렀을때 반대로 cid값 플러터한테 보내주고, 그 값을 토대로 캡슐 찾아서 capsuleDetail (플러터)스크린 띄우도록 해야함.
 
     public ARRaycastManager arRaycaster;
     public GameObject placeObject;
@@ -22,7 +23,7 @@ public class ArPlaceOnPlane : MonoBehaviour
     UnityMessageReceiver unityMessageReceiver;
     // private int receivedCid;
     // Start is called before the first frame update
-
+    
     private int receivedCid;
     void Start()
     {  
@@ -30,6 +31,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         placeObject.SetActive(false);
         // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
+        //TODO: 캡슐 눌렀을 때 title도 뜨게 해줘야할듯 ,detail로 cid뿐만 아니라 title도 받아와야할듯
     }
 
     // Update is called once per frame
@@ -51,12 +53,23 @@ public class ArPlaceOnPlane : MonoBehaviour
     }
 
     public void receiveMessage(string message){
-        Debug.Log("플러터에서 받은 메시지:" + message);
-        receivedCid = int.Parse(message);
-        Debug.Log(receivedCid);
-        capsuleCreate(receivedCid);
+        Debug.Log("플러터에서 받은 cid,title 메시지:" + message);
+        string[] parts = message.Split(',');
+        int cid = int.Parse(parts[0]);
+        string title = parts[1];
+        // receivedCid = int.Parse(message);
+        Debug.Log("처음이 cid 뒤가 title: "+cid+title);
+        capsuleCreate(cid, title);
     }
-    public void capsuleCreate(int cid){
+
+    // public void receiveTitleMessage(string message){
+    //         Debug.Log("플러터에서 받은 title 메시지:" + message);
+    //         receiveTitleMessage = message;
+    //         Debug.Log(receiveTitleMessage);
+            
+    // }
+
+    public void capsuleCreate(int cid, string title){
         
         // receivedCid = cid;
         
@@ -78,6 +91,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
         
         capsule.GetComponent<CapsuleDetail>().assignCid(cid);
+        capsule.GetComponent<CapsuleDetail>().assignTitle(title);
     
 
         capsule.SetActive(true); 
