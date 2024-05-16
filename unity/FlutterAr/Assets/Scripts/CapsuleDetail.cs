@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.DeviceSimulation;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class CapsuleDetail : MonoBehaviour
-{
+public class CapsuleDetail : MonoBehaviour 
+{   
+    
     private int cid;
     private string title;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("캡슐디테일실행");
     }
 
     // Update is called once per frame
@@ -19,14 +19,13 @@ public class CapsuleDetail : MonoBehaviour
         
     }
 
-    private void touchCapsule(){
-        if(Input.touchCount>0){
-            Touch touch = Input.GetTouch(0);
-            // todo: 터치 시작됐을 때
-            Debug.Log("캡슐 터치 됐음!, cid랑 title:" + cid + title);
-        }
-    }
+    
 
+    
+
+
+
+    //! FIXME: 5월15일, 캡슐 잡고 움직여서 위치 바꾸는거 하려 했는데 지금 단계에선 굳이인듯, 나중에 다 하고 시간 남으면 해보자. 
     public void assignCid(int cid){
         this.cid = cid;
     }

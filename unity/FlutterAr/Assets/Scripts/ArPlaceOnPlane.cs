@@ -1,13 +1,12 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using System.Linq;
-using UnityEngine.Android;
+
+// using UnityEngine.Android;
 
 public class ArPlaceOnPlane : MonoBehaviour
-{   
+{
 
     // TODO: 5월15일에 해야할거, 이제 유니티에서 캡슐 눌렀을때 반대로 cid값 플러터한테 보내주고, 그 값을 토대로 캡슐 찾아서 capsuleDetail (플러터)스크린 띄우도록 해야함.
 
@@ -19,15 +18,15 @@ public class ArPlaceOnPlane : MonoBehaviour
     public List<GameObject> capsuleList = new List<GameObject>();
 
     public float rotationSpeed = 30f;
-    
+
     UnityMessageReceiver unityMessageReceiver;
     // private int receivedCid;
     // Start is called before the first frame update
-    
+
     private int receivedCid;
     void Start()
-    {  
-        
+    {
+
         placeObject.SetActive(false);
         // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
@@ -36,67 +35,97 @@ public class ArPlaceOnPlane : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         // capsuleCreate(unityMessageReceiver.receivedCid);
         // PlaceObjectByTouch();
+        capsuleTouch();
         rotate();
-      
+
     }
 
-    private void rotate(){
-
-        if(capsule!= null){
-            
-             capsule.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
-        }
+    private void capsuleTouch()
+    {   
         
+        if (Input.touchCount > 0)
+        {
+            Debug.Log("레이케스트 함수 실행");
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                Debug.Log("터치 시작");
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(touch.position), out hit))
+                {
+                    Debug.Log("레이케스트 물체 포착");
+                    GameObject touchedObject = hit.collider.gameObject;
+                    if (touchedObject.CompareTag("Capsula"))
+                    {
+                        Debug.Log("캡슐 터치");
+                    }
+                }
+            }
+        }
     }
 
-    public void receiveMessage(string message){
+    // void HandleTouchEvent(GameObject touchedObject)
+    // {
+    //     if (touchedObject.CompareTag("capsule"))
+    //     {
+    //         Debug.Log("캡슐 터치");
+    //     }
+    // }
+
+    private void rotate()
+    {
+
+        if (capsule != null)
+        {
+
+            capsule.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+        }
+
+    }
+
+    public void receiveMessage(string message)
+    {
         Debug.Log("플러터에서 받은 cid,title 메시지:" + message);
         string[] parts = message.Split(',');
         int cid = int.Parse(parts[0]);
         string title = parts[1];
         // receivedCid = int.Parse(message);
-        Debug.Log("처음이 cid 뒤가 title: "+cid+title);
+        Debug.Log("처음이 cid 뒤가 title: " + cid + title);
         capsuleCreate(cid, title);
     }
 
-    // public void receiveTitleMessage(string message){
-    //         Debug.Log("플러터에서 받은 title 메시지:" + message);
-    //         receiveTitleMessage = message;
-    //         Debug.Log(receiveTitleMessage);
-            
-    // }
+    public void capsuleCreate(int cid, string title)
+    {
 
-    public void capsuleCreate(int cid, string title){
-        
         // receivedCid = cid;
-        
+
         // if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-    // {
+        // {
         // 카메라의 현재 위치와 방향을 기준으로 함
         Vector3 cameraPosition = Camera.main.transform.position;
         Vector3 cameraForward = Camera.main.transform.forward;
-        
+
         // 카메라로부터 일정 거리 내에서 랜덤한 위치 결정
         float distance = Random.Range(1.0f, 5.0f); // 1m에서 5m 사이의 랜덤한 거리
         // Vector3 randomDirection = Random.insideUnitSphere; // 랜덤한 방향
         // Vector3 forwardDirection = Vector3.forward; // z축으로의 단위벡터
         Vector3 spawnPosition = cameraPosition + cameraForward * distance;
-        
+
         // 랜덤 위치에 오브젝트 생성
-        capsule = Instantiate(placeObject, spawnPosition, Quaternion.identity);   
+        capsule = Instantiate(placeObject, spawnPosition, Quaternion.identity);
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
-        
+
         capsule.GetComponent<CapsuleDetail>().assignCid(cid);
         capsule.GetComponent<CapsuleDetail>().assignTitle(title);
-    
 
-        capsule.SetActive(true); 
-        
-        Debug.Log(spawnPosition);    
+
+        capsule.SetActive(true);
+
+        Debug.Log(spawnPosition);
         Debug.Log("캡슐 생성 완료");
         // }
     }
@@ -115,7 +144,7 @@ public class ArPlaceOnPlane : MonoBehaviour
     //                 capsule.transform.position = hitPose.position;
     //                 // capsule.transform.rotation = hitPose.rotation;
     //             }
-               
+
     //         }
     //     }
     // }
