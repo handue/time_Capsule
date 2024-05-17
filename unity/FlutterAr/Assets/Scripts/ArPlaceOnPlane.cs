@@ -38,42 +38,15 @@ public class ArPlaceOnPlane : MonoBehaviour
     {
         // capsuleCreate(unityMessageReceiver.receivedCid);
         // PlaceObjectByTouch();
-        capsuleTouch();
+        
         rotate();
 
     }
 
-    private void capsuleTouch()
-    {   
-        
-        if (Input.touchCount > 0)
-        {
-            Debug.Log("레이케스트 함수 실행");
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
-                Debug.Log("터치 시작");
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(touch.position), out hit))
-                {
-                    Debug.Log("레이케스트 물체 포착");
-                    GameObject touchedObject = hit.collider.gameObject;
-                    if (touchedObject.CompareTag("Capsula"))
-                    {
-                        Debug.Log("캡슐 터치");
-                    }
-                }
-            }
-        }
-    }
+   
+    //FIXME: 이건 2d인거 같고 3로 바꿔야될거 같은데. 아 그리고 이거 레이케스트로 하지말고 그냥 생성되는 캡슐마다 각각 오브젝트 터치 감지하도록 해야될듯 ㅋㅋ 계속 레이케스트 물체 포착이 안돼
 
-    // void HandleTouchEvent(GameObject touchedObject)
-    // {
-    //     if (touchedObject.CompareTag("capsule"))
-    //     {
-    //         Debug.Log("캡슐 터치");
-    //     }
-    // }
+  
 
     private void rotate()
     {
