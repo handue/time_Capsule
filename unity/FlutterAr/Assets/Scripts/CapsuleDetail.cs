@@ -1,12 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR.ARFoundation;
 
 
 public class CapsuleDetail : MonoBehaviour , IPointerClickHandler
 {   
     
-    private int cid;
-    private string title;
+    public int cid;
+    private ARRaycastManager _arRaycastManager;
+    private RaycastHit hitInfo;
+    public int getCapsule;
+
+    public string title;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +22,29 @@ public class CapsuleDetail : MonoBehaviour , IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        capsuleTouch();
+        // test_touch();
+        // capsuleTouch2();
     }   
+
+    public void capsuleTouch2(){
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            Ray screenRay = Camera.main.ScreenPointToRay(mousePos);
+            if(Physics.Raycast(screenRay.origin, screenRay.direction* 1000f, out hitInfo)){
+                if(hitInfo.collider.CompareTag("capsule") ){
+                    hitInfo.collider.gameObject.SetActive(false);
+                    getCapsule++;
+                    Debug.Log("capsule 터치");
+                }
+            }
+        }
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         // 터치 이벤트 처리 로직 작성
-        Debug.Log("AR Object Clicked!");
+        Debug.Log("AR Object 클릭됨!!");
     }
 
     
@@ -56,6 +78,25 @@ public class CapsuleDetail : MonoBehaviour , IPointerClickHandler
             }
         }
     }
+
+     private void test_touch(){
+         if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            // 터치 위치에서 Raycast 발생
+            List<ARRaycastHit> hits = new List<ARRaycastHit>();
+            if (_arRaycastManager.Raycast(Input.GetTouch(0).position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+            {
+                // Raycast 결과에서 오브젝트 감지
+                if (hits.Count > 0)
+                {
+                    ARRaycastHit hit = hits[0];
+                    GameObject touchedObject = hit.trackable.gameObject;
+                    Debug.Log($" cd Touched object: {touchedObject.name}");
+                }
+            }
+        }
+    }
+    
 
       void HandleTouchEvent(GameObject touchedObject)
     {

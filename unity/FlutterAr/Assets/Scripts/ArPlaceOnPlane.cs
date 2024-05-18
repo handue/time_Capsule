@@ -14,20 +14,16 @@ public class ArPlaceOnPlane : MonoBehaviour
     public GameObject placeObject;
     // GameObject spawnObject;
     public GameObject capsule;
-
-    public List<GameObject> capsuleList = new List<GameObject>();
-
+    private RaycastHit hitInfo;
     public float rotationSpeed = 30f;
 
-    UnityMessageReceiver unityMessageReceiver;
-    // private int receivedCid;
-    // Start is called before the first frame update
-
-    private int receivedCid;
+    private ARRaycastManager arRaycastManager;
     void Start()
     {
-
-        placeObject.SetActive(false);
+        Debug.Log("ㅎㅇ");
+         arRaycastManager = GetComponent<ARRaycastManager>();
+        placeObject.SetActive(false); 
+        capsuleCreate(3,"hi");
         // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
         //TODO: 캡슐 눌렀을 때 title도 뜨게 해줘야할듯 ,detail로 cid뿐만 아니라 title도 받아와야할듯
@@ -36,18 +32,51 @@ public class ArPlaceOnPlane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+         rotate();
         // capsuleCreate(unityMessageReceiver.receivedCid);
         // PlaceObjectByTouch();
-        
-        rotate();
+         if(Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            Ray screenRay = Camera.main.ScreenPointToRay(mousePos);
+            if(Physics.Raycast(screenRay.origin, screenRay.direction* 1000f, out hitInfo)){
+                if(hitInfo.collider.CompareTag("capsule") ){
+                    hitInfo.collider.gameObject.SetActive(false);
+                    Debug.Log("capsule 터치");
+                    capsule.SetActive(false);
+                }}
+       
 
+        }
     }
 
    
     //FIXME: 이건 2d인거 같고 3로 바꿔야될거 같은데. 아 그리고 이거 레이케스트로 하지말고 그냥 생성되는 캡슐마다 각각 오브젝트 터치 감지하도록 해야될듯 ㅋㅋ 계속 레이케스트 물체 포착이 안돼
 
   
+    private void HandleTouch()
+{
+    Vector2 touchPosition = Input.GetTouch(0).position;
+    List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
+    if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+    {
+        foreach (var hit in hits)
+        {
+            GameObject hitObject = hit.trackable.gameObject;
+            CapsuleDetail capsuleDetail = hitObject.GetComponent<CapsuleDetail>();
+
+            if (capsuleDetail != null)
+            {
+                int cid = capsuleDetail.cid;
+                string title = capsuleDetail.title;
+
+                // 터치된 capsule 게임 오브젝트에 대한 처리 로직 작성
+                Debug.Log($"Touched capsule with cid: {cid}, title: {title}");
+                 }
+             }
+        }
+    }
     private void rotate()
     {
 
