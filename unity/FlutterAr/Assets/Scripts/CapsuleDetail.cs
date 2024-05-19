@@ -12,19 +12,57 @@ public class CapsuleDetail : MonoBehaviour , IPointerClickHandler
     private RaycastHit hitInfo;
     public int getCapsule;
 
+    private ARRaycastManager arRaycastManager;
     public string title;
     // Start is called before the first frame update
     void Start()
     {
+        arRaycastManager = GetComponent<ARRaycastManager>();
         Debug.Log("캡슐디테일실행");
+         if (arRaycastManager == null)
+    {
+        Debug.LogError("arRaycastManager is null. Please assign a valid ARRaycastManager component.");
+    }
     }
 
     // Update is called once per frame
     void Update()
-    {
-        // test_touch();
-        // capsuleTouch2();
+    {   
+         Debug.Log("arRaycastManager: " + arRaycastManager);
+         if(Input.touchCount> 0 && Input.GetTouch(0).phase== TouchPhase.Began){
+            HandleTouch();
+         }
     }   
+
+     private void HandleTouch()
+{
+    Vector2 touchPosition = Input.GetTouch(0).position;
+    Debug.Log("touchPosition: "  + touchPosition);
+    List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+    if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+    {
+        foreach (var hit in hits)
+        {
+            GameObject hitObject = hit.trackable.gameObject;
+            Debug.Log("hitObject: "  + hitObject);
+            CapsuleDetail capsuleDetail = hitObject.GetComponent<CapsuleDetail>();
+
+            if (capsuleDetail != null)
+            {
+                int cid = capsuleDetail.cid;
+                string title = capsuleDetail.title;
+
+                // 터치된 capsule 게임 오브젝트에 대한 처리 로직 작성
+                Debug.Log($"Touched capsule with cid: {cid}, title: {title}");
+                 }
+             }
+        }
+        else{
+            Debug.Log("감지 실패");
+            Debug.Log("hits"+hits);
+        }
+    }
 
     public void capsuleTouch2(){
         if(Input.GetMouseButtonDown(0))

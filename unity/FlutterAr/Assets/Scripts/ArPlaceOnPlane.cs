@@ -22,8 +22,12 @@ public class ArPlaceOnPlane : MonoBehaviour
     {
         Debug.Log("ㅎㅇ");
          arRaycastManager = GetComponent<ARRaycastManager>();
+          if (arRaycastManager == null)
+    {
+        Debug.LogError("arRaycastManager is null. Please assign a valid ARRaycastManager component.");
+    }
         placeObject.SetActive(false); 
-        capsuleCreate(3,"hi");
+        // capsuleCreate(3,"hi");
         // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
         //TODO: 캡슐 눌렀을 때 title도 뜨게 해줘야할듯 ,detail로 cid뿐만 아니라 title도 받아와야할듯
@@ -33,21 +37,12 @@ public class ArPlaceOnPlane : MonoBehaviour
     void Update()
     {
          rotate();
-        // capsuleCreate(unityMessageReceiver.receivedCid);
-        // PlaceObjectByTouch();
-         if(Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Input.mousePosition;
-            Ray screenRay = Camera.main.ScreenPointToRay(mousePos);
-            if(Physics.Raycast(screenRay.origin, screenRay.direction* 1000f, out hitInfo)){
-                if(hitInfo.collider.CompareTag("capsule") ){
-                    hitInfo.collider.gameObject.SetActive(false);
-                    Debug.Log("capsule 터치");
-                    capsule.SetActive(false);
-                }}
-       
+          Debug.Log("arRaycastManager: " + arRaycastManager);
 
-        }
+         if(Input.touchCount> 0 && Input.GetTouch(0).phase== TouchPhase.Began){
+            HandleTouch();
+         }
+   
     }
 
    
@@ -57,13 +52,15 @@ public class ArPlaceOnPlane : MonoBehaviour
     private void HandleTouch()
 {
     Vector2 touchPosition = Input.GetTouch(0).position;
+    Debug.Log("touchPosition: "  + touchPosition);
     List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+    if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.FeaturePoint))
     {
         foreach (var hit in hits)
         {
             GameObject hitObject = hit.trackable.gameObject;
+            Debug.Log("hitObject: "  + hitObject);
             CapsuleDetail capsuleDetail = hitObject.GetComponent<CapsuleDetail>();
 
             if (capsuleDetail != null)
