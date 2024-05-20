@@ -6550,7 +6550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 782628382}
   placeObject: {fileID: 1922680601}
-  capsule: {fileID: 1922680601}
+  capsule: {fileID: 0}
   rotationSpeed: 30
 --- !u!4 &1822642868
 Transform:

@@ -17,7 +17,7 @@ public class CapsuleDetail : MonoBehaviour , IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        arRaycastManager = GetComponent<ARRaycastManager>();
+         arRaycastManager = FindAnyObjectByType<ARRaycastManager>();
         Debug.Log("캡슐디테일실행");
          if (arRaycastManager == null)
     {
@@ -60,7 +60,7 @@ public class CapsuleDetail : MonoBehaviour , IPointerClickHandler
         }
         else{
             Debug.Log("감지 실패");
-            Debug.Log("hits"+hits);
+            Debug.Log("hits:"+hits);
         }
     }
 
