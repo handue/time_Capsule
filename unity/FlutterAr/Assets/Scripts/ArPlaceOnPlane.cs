@@ -131,7 +131,7 @@ public class ArPlaceOnPlane : MonoBehaviour
     }
 }
 
-//TODO: 그냥 실행 돌려보면 됨 다시 오면 
+//TODO: 그냥 실행 돌려보면 됨 다시 오면 ..
 
     // private void PlaceObjectByTouch(){
     //     if(Input.touchCount>0){
