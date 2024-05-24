@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:time_capsule/controller/CapsuleController.dart';
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/screen/AddPostPage.dart';
+import 'package:time_capsule/screen/CapsuleDetail.dart';
 
 class UnityAr extends StatefulWidget {
   const UnityAr({super.key});
@@ -33,8 +35,36 @@ class _UnityArState extends State<UnityAr> {
   }
 
   void onUnityMessage(message) {
+    List<String> parts = message.split(',');
     if (message == "addPost") {
       Get.to(() => AddPostPage());
+    }
+    if (parts[0] == "touchCapsule") {
+      int cid = int.parse(parts[1]);
+      String title = parts[2];
+      //todo: 이 cid랑 title 토대로 capsuleDetail 창 열어야되고, 데이터베이스에는 이 cid 동일한거 가져오라고 나중에 명령어 기록하면 될듯. 현재 이 상황은 unity 상황에서 캡슐이 터치된 상황.
+
+      for (int i = 0; i < capsuleController.capsuleList.length; i++) {
+        if (capsuleController.capsuleList[i]!.cid == cid) {
+          capsuleController.capsuleContents.value =
+              capsuleController.capsuleList[i]?.contents ?? 'no contents';
+          capsuleController.capsuleLike.value =
+              capsuleController.capsuleList[i]!.like;
+          capsuleController.capsuleLocationName.value =
+              capsuleController.capsuleList[i]?.locationName ??
+                  'no location name';
+          capsuleController.capsuleTitle.value =
+              capsuleController.capsuleList[i]?.title ?? 'no title';
+          capsuleController.capsuleParty.value =
+              capsuleController.capsuleList[i]?.partyName ?? 'no party Name';
+          capsuleController.capsuleNickname.value =
+              capsuleController.capsuleList[i]?.nickname ?? 'no nickname';
+          capsuleController.capsuleCreatedTime.value =
+              DateFormat('yyyy-MM-dd HH:mm')
+                  .format(capsuleController.capsuleList[i]!.createdAt);
+          Get.to(() => CapsuleDetail());
+        }
+      }
     }
   }
   // ! 5월14일 유니티 수신 오류 - 오후 10시 37분 해결완료

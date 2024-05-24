@@ -20,7 +20,7 @@ public class ArPlaceOnPlane : MonoBehaviour
 
     void Start()
     {
-    
+        // capsuleCreate(12,"test");
         placeObject.SetActive(false); 
         // capsuleCreate(3,"hi");
         // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
