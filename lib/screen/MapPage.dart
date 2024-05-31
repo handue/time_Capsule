@@ -70,7 +70,7 @@ class MapPage extends StatelessWidget {
           circles: {
             Circle(
               circleId: const CircleId("1"),
-              // 이거 나중에 CircleId를 회원 ID 유니크 값이랑 같도록 해야될듯.
+              // 이거 나중에 CircleId를 회원 ID 유니크 값이랑 같도록 해야될듯
               center: LatLng(locationController.currentPosition.value!.latitude,
                   locationController.currentPosition.value!.longitude),
               radius: 100,
