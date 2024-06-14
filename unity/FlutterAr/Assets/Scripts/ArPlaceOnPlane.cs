@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-
-// using UnityEngine.Android;
+using TMPro;
 
 public class ArPlaceOnPlane : MonoBehaviour
 {
-
     // TODO: 5월15일에 해야할거, 이제 유니티에서 캡슐 눌렀을때 반대로 cid값 플러터한테 보내주고, 그 값을 토대로 캡슐 찾아서 capsuleDetail (플러터)스크린 띄우도록 해야함.
-
     private ARRaycastManager arRaycastManager;
     public GameObject placeObject;
     // GameObject spawnObject;
     public GameObject capsule;
+    public GameObject textGameObject;
+    public GameObject textPrefab;
     public float rotationSpeed = 30f;
-    private List<GameObject> spawnedCapsules = new List<GameObject>();
+
+    public List<GameObject> spawnedCapsules = new List<GameObject>();
 
     void Start()
     {
         // capsuleCreate(12,"test");
-        placeObject.SetActive(false); 
+        placeObject.SetActive(false);
+        textGameObject.SetActive(false);
         // capsuleCreate(3,"hi");
         // unityMessageReceiver = GetComponent<UnityMessageReceiver>();
         // TODO: 음 이거 캡슐 생성할때, 플러터에서 데이터베이스에 정보 요청해서 인근에 캡슐 있을 때, create 하고 그 create 따라서 정보 삽입하도록 해야할듯. 나중에는 카메라 버튼 누를때 플러터를 작동시키는게 아니라, 위치 변할때마다 작동시켜줘야지. 하아 .. 
@@ -31,18 +32,19 @@ public class ArPlaceOnPlane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         rotate();
-        
+        if (spawnedCapsules.Count > 0)
+        {
+            foreach (GameObject capsule in spawnedCapsules)
+            {
+                if (capsule != null)
+                {
+                    capsule.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+                }
+            }
+        }
 
-       
-   
     }
 
-   
-    //FIXME: 이건 2d인거 같고 3로 바꿔야될거 같은데. 아 그리고 이거 레이케스트로 하지말고 그냥 생성되는 캡슐마다 각각 오브젝트 터치 감지하도록 해야될듯 ㅋㅋ 계속 레이케스트 물체 포착이 안돼
-
-  
-    
     private void rotate()
     {
 
@@ -68,10 +70,7 @@ public class ArPlaceOnPlane : MonoBehaviour
     public void capsuleCreate(int cid, string title)
     {
 
-        // receivedCid = cid;
 
-        // if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        // {
         // 카메라의 현재 위치와 방향을 기준으로 함
         Vector3 cameraPosition = Camera.main.transform.position;
         Vector3 cameraForward = Camera.main.transform.forward;
@@ -84,17 +83,34 @@ public class ArPlaceOnPlane : MonoBehaviour
 
         // 랜덤 위치에 오브젝트 생성
         capsule = Instantiate(placeObject, spawnPosition, Quaternion.identity);
+
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
         // Instantiate(placeObject, spawnPosition, Quaternion.identity);   
 
         capsule.GetComponent<CapsuleDetail>().assignCid(cid);
         capsule.GetComponent<CapsuleDetail>().assignTitle(title);
-
+        spawnedCapsules.Add(capsule);
 
         capsule.SetActive(true);
 
+
+        GameObject newTextObject = Instantiate(textPrefab, capsule.transform);
+        // newTextObject.GetComponent<TextMeshPro>().text = title;
+        // newTextObject.SetActive(true);
+
+        TextMeshPro textMeshPro = newTextObject.GetComponent<TextMeshPro>();
+        textMeshPro.text = title;
+        textMeshPro.alignment = TextAlignmentOptions.Center; // Center horizontally
+        textMeshPro.alignment = textMeshPro.alignment | TextAlignmentOptions.Center; // Center vertically as well
+        newTextObject.transform.localPosition = Vector3.up * 5.0f; 
+        newTextObject.SetActive(true); 
+
+
         Debug.Log(spawnPosition);
-        Debug.Log("캡슐 생성 완료:"+capsule);
+        Debug.Log("캡슐 생성 완료:" + capsule);
         // }
     }
+
+
+
 }

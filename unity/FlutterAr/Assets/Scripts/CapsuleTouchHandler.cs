@@ -5,10 +5,11 @@ public class CapsuleTouchHandler : MonoBehaviour
 {
     private CapsuleDetail capsuleDetail;
 
+
     void Start()
     {
         capsuleDetail = GetComponent<CapsuleDetail>();
-        
+
     }
 
     void Update()
@@ -47,6 +48,7 @@ public class CapsuleTouchHandler : MonoBehaviour
                         string title = capsuleDetail.getTitle();
                         Debug.Log($"Touched capsule with cid: {cid}, title: {title}");
                         sendToFlutter($"touchCapsule,{cid},{title}");
+                        
                     }
                 }
                 else
@@ -69,7 +71,8 @@ public class CapsuleTouchHandler : MonoBehaviour
         // Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
     }
 
-        public void sendToFlutter(string message){
+    public void sendToFlutter(string message)
+    {
         UnityMessageManager.Instance.SendMessageToFlutter(message);
         // TODO: 캡슐 터치했으니까, cid랑 title 정보 다시 넘겨줘서 그 넘겨준 정보 토대로 플러터에서 캡슐창 열도록 해야함.
         // FIXME: 이제 음 .. 캡슐 위에다가 title 푯말 뜨게 해줘야함.
@@ -79,6 +82,8 @@ public class CapsuleTouchHandler : MonoBehaviour
         // string title = parts[1];
         // receivedCid = int.Parse(message);
 
-       
+
     }
+
+
 }
