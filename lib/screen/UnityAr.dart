@@ -8,6 +8,7 @@ import 'package:time_capsule/controller/CapsuleController.dart';
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/screen/AddPostPage.dart';
 import 'package:time_capsule/screen/CapsuleDetail.dart';
+import 'package:time_capsule/service/UnityService.dart';
 
 class UnityAr extends StatefulWidget {
   const UnityAr({super.key});
@@ -27,6 +28,7 @@ class _UnityArState extends State<UnityAr> {
     sendUnityMessage();
   }
 
+  // 카메라 눌렀을 때 캡슐 업데이트 되도록 했는데, 나중에 수정하긴 해야함
   void searchCapsule() {
     //위도 경도 DB로 보내기만 하면 알아서 주변 컨텐츠들은 가져올 수 있음.
     // 그러니까 그냥 db로 현재 내 위치 보내는것만 하면 될듯.
@@ -70,7 +72,7 @@ class _UnityArState extends State<UnityAr> {
   // ! 5월14일 유니티 수신 오류 - 오후 10시 37분 해결완료
   // FIXME: 유니티로 메시지 전송은 되는데, 유니티에서 수신이 안됨.
 
-  void sendUnityMessage() {
+  void sendUnityMessage() async {
     for (int i = 0; i < capsuleController.nearCapsuleList.value.length; i++) {
       String sendMessage =
           "${capsuleController.nearCapsuleList.value[i]?.cid},${capsuleController.nearCapsuleList.value[i]?.title}";
@@ -80,8 +82,20 @@ class _UnityArState extends State<UnityAr> {
 
       _unityWidgetController.postMessage(
           'CapsuleSpawner', "receiveMessage", sendMessage);
+      // _unityWidgetController.postMessage(
+
+      // )
 
       print('유니티 메시지 전송 완료: $sendMessage');
+    }
+    // todo: 임의로 캡슐 눌렀을 때 사진 밖으로 나오나 테스트 해보려고 이렇게 했음.
+    try {
+      Future<String> sendImage =
+          UnityService.prepareImage('../images/testpic.png');
+      _unityWidgetController.postMessage('Canvas', 'receiveImage', sendImage);
+      print('유니티 이미지 전송 완료: $sendImage');
+    } catch (error) {
+      print(error);
     }
   }
 

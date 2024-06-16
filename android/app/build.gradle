@@ -80,4 +80,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+
+dependencies {
+    implementation project(':unityLibrary')
+}
