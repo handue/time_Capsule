@@ -15,6 +15,7 @@ public class ArPlaceOnPlane : MonoBehaviour
     public GameObject textGameObject;
     public GameObject textPrefab;
     public float rotationSpeed = 30f;
+    private List<GameObject> textObjects = new List<GameObject>();
 
     public List<GameObject> spawnedCapsules = new List<GameObject>();
 
@@ -42,6 +43,19 @@ public class ArPlaceOnPlane : MonoBehaviour
                 }
             }
         }
+
+        // if (textObjects.Count > 0)
+        // {
+        //     foreach (GameObject textObj in textObjects)
+        //     {
+        //         if (textObj != null)
+        //         {
+        //             textObj.transform.rotation = Quaternion.identity;
+        //         }
+        //     }
+        // }
+        // ! 그냥 같이 회전시키는게 보기 더 좋은거 같음
+
 
     }
 
@@ -102,9 +116,13 @@ public class ArPlaceOnPlane : MonoBehaviour
         textMeshPro.text = title;
         textMeshPro.alignment = TextAlignmentOptions.Center; // Center horizontally
         textMeshPro.alignment = textMeshPro.alignment | TextAlignmentOptions.Center; // Center vertically as well
-        newTextObject.transform.localPosition = Vector3.up * 5.0f; 
-        newTextObject.SetActive(true); 
+        newTextObject.transform.localPosition = Vector3.up * 5.0f;
+        newTextObject.SetActive(true);
 
+                // todo: 백그라운드나 말풍선 같은 귀찮은거 말고, 눌렀을 떄 사진 AR로 보이도록 하는거 하자.
+        
+
+        textObjects.Add(newTextObject);
 
         Debug.Log(spawnPosition);
         Debug.Log("캡슐 생성 완료:" + capsule);
