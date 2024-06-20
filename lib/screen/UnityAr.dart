@@ -131,4 +131,4 @@ class _UnityArState extends State<UnityAr> {
   }
 }
 
-// 6월19일 시험 끝났어요 .. 오늘만 넘어갈게요 하핳 
+// 6월20일 며ㄴ접 준비했어요 .. 오늘만 넘어갈게요 하핳 
