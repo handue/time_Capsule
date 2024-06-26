@@ -131,4 +131,4 @@ class _UnityArState extends State<UnityAr> {
   }
 }
 
-// 6월25일 면접 준비했어요 .. 오늘도 넘어갈게요 하핳 
+// 6월26일 내일 면접 .. 잘보고 올게요 하핳
