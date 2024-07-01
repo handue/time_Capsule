@@ -30,7 +30,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         //TODO: 캡슐 눌렀을 때 title도 뜨게 해줘야할듯 ,detail로 cid뿐만 아니라 title도 받아와야할듯
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (spawnedCapsules.Count > 0)
