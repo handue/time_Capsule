@@ -81,8 +81,11 @@ class AddPostPage extends StatelessWidget {
                         partyName: "준택이와친구들",
                         title: "암온어준택",
                         contents: "홍준택은 ..",
-                        latitude: 37.272206,
-                        longitude: 127.056204,
+                        latitude: 34.055308660189965,
+                        longitude: -118.30429474666923,
+                        // 아래 우리 집 주변 위치
+                        // latitude: 37.272206,
+                        // longitude: 127.056204,
                         locationName: "준택이 마음속..",
                         createdAt: DateTime.now(),
                         updatedAt: '',

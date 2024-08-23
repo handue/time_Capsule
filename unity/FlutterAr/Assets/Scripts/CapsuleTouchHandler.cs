@@ -9,7 +9,7 @@ public class CapsuleTouchHandler : MonoBehaviour
     public GameObject imagePrefab; // 이미지 프리팹
     public List<GameObject> CapsuleImageList;
   
-
+    
     void Start()
     {
 
@@ -74,41 +74,82 @@ public class CapsuleTouchHandler : MonoBehaviour
         }
     }
 
+    // private void ShowImageOnCapsule(Vector3 position)
+    // {
+    //     // todo: 터치시에 캡슐 작동하도록 해야함 -> 터치시에 이미지 보이도록 해놓긴 함 6월17일 
+    //     // todo: 터치 됐을 때, 이미지 가져와서 List에 넣어주고 생성되도록 해야할듯. -> 원래는 터치 되면 거기서 보낸 cid, title, image 를 리스트에 담아둬서 cid에 맞게 그 image를 가져오도록 해야하는데 일단은 테스트 용도 위해서 따로 image 보내놓도록 했음.
+    //     // todo: 그리고 이제 이미지를 내가 직접 가져오는거 말고 터치 했을 때 flutter로부터 image 값 받아와서 출력되도록 해야함  -> 이거 해야함
+    //     // todo: 그리고 이미지 화소? 조절할 수 있으면 하는게 나을듯 -> 터치시에 이미지 보이도록 해놓긴 함 6월16일. 아래 필터 설정해서 했음 
+    //     if (imagePrefab != null)
+    //     {
+    //         Debug.Log("Instantiating image at position: " + position);
+
+    //         // 카메라 위치를 기준으로 일정 거리 떨어진 위치에 이미지 생성
+    //         Vector3 cameraPosition = Camera.main.transform.position;
+    //         Vector3 direction = (position - cameraPosition).normalized;
+    //         float distanceFromCamera = 5.0f; // 카메라로부터 떨어진 거리 (미터 단위로 조정 가능)
+    //         Vector3 spawnPosition = cameraPosition + direction * distanceFromCamera;
+
+    //         GameObject CapsuleImage = Instantiate(imagePrefab, spawnPosition, Quaternion.identity);
+
+    //         Renderer renderer = CapsuleImage.GetComponent<Renderer>();
+    //         if (renderer != null && renderer.material != null)
+    //         {
+    //             renderer.material.mainTexture.filterMode = FilterMode.Trilinear; // Trilinear 필터링 모드 설정 -> 화질 좋아지게 하려구
+    //         }
+
+
+    //         CapsuleImage.transform.LookAt(Camera.main.transform); // 카메라를 바라보도록 설정
+    //         CapsuleImageList.Add(CapsuleImage);
+    //         Debug.Log("Image instantiated and oriented towards the camera at position: " + spawnPosition);
+    //         CapsuleImage.SetActive(true);
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("imagePrefab is not assigned.");
+    //     }
+    // }
+
     private void ShowImageOnCapsule(Vector3 position)
+{
+    if (imagePrefab != null)
     {
-        // todo: 터치시에 캡슐 작동하도록 해야함 -> 터치시에 이미지 보이도록 해놓긴 함 6월17일 
-        // todo: 터치 됐을 때, 이미지 가져와서 List에 넣어주고 생성되도록 해야할듯. -> 원래는 터치 되면 거기서 보낸 cid, title, image 를 리스트에 담아둬서 cid에 맞게 그 image를 가져오도록 해야하는데 일단은 테스트 용도 위해서 따로 image 보내놓도록 했음.
-        // todo: 그리고 이제 이미지를 내가 직접 가져오는거 말고 터치 했을 때 flutter로부터 image 값 받아와서 출력되도록 해야함  -> 이거 해야함
-        // todo: 그리고 이미지 화소? 조절할 수 있으면 하는게 나을듯 -> 터치시에 이미지 보이도록 해놓긴 함 6월16일. 아래 필터 설정해서 했음 
-        if (imagePrefab != null)
+        Debug.Log("Instantiating image at position: " + position);
+
+        // Get the collider of the capsule
+        Collider capsuleCollider = GetComponent<Collider>();
+        if (capsuleCollider == null)
         {
-            Debug.Log("Instantiating image at position: " + position);
-
-            // 카메라 위치를 기준으로 일정 거리 떨어진 위치에 이미지 생성
-            Vector3 cameraPosition = Camera.main.transform.position;
-            Vector3 direction = (position - cameraPosition).normalized;
-            float distanceFromCamera = 4.0f; // 카메라로부터 떨어진 거리 (미터 단위로 조정 가능)
-            Vector3 spawnPosition = cameraPosition + direction * distanceFromCamera;
-
-            GameObject CapsuleImage = Instantiate(imagePrefab, spawnPosition, Quaternion.identity);
-
-            Renderer renderer = CapsuleImage.GetComponent<Renderer>();
-            if (renderer != null && renderer.material != null)
-            {
-                renderer.material.mainTexture.filterMode = FilterMode.Trilinear; // Trilinear 필터링 모드 설정 -> 화질 좋아지게 하려구
-            }
-
-
-            CapsuleImage.transform.LookAt(Camera.main.transform); // 카메라를 바라보도록 설정
-            CapsuleImageList.Add(CapsuleImage);
-            Debug.Log("Image instantiated and oriented towards the camera at position: " + spawnPosition);
-            CapsuleImage.SetActive(true);
+            Debug.LogError("No collider found on the capsule.");
+            return;
         }
-        else
+
+        // Automatically calculate the height of the capsule using its collider's bounds
+        float capsuleHeight = capsuleCollider.bounds.size.y;
+
+        // Calculate the spawn position above the capsule
+        float offsetAboveCapsule = capsuleHeight / 2 + 0.5f; // Adjust '0.5f' for more or less spacing
+        Vector3 spawnPosition = position + new Vector3(0, offsetAboveCapsule, 0);
+
+        GameObject CapsuleImage = Instantiate(imagePrefab, spawnPosition, Quaternion.identity);
+
+        Renderer renderer = CapsuleImage.GetComponent<Renderer>();
+        if (renderer != null && renderer.material != null)
         {
-            Debug.Log("imagePrefab is not assigned.");
+            renderer.material.mainTexture.filterMode = FilterMode.Trilinear; // Improve texture quality with Trilinear filtering
         }
+
+        CapsuleImage.transform.LookAt(Camera.main.transform); // Orient the image to face the camera
+        CapsuleImageList.Add(CapsuleImage);
+        Debug.Log("Image instantiated and oriented towards the camera at position: " + spawnPosition);
+        CapsuleImage.SetActive(true);
     }
+    else
+    {
+        Debug.Log("imagePrefab is not assigned.");
+    }
+}
+
 
     //   if (imagePrefab != null)
     //     {
