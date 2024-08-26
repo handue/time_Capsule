@@ -41,7 +41,9 @@ class _UnityArState extends State<UnityAr> {
     if (message == "addPost") {
       Get.to(() => AddPostPage());
     }
-    if (parts[0] == "touchCapsule") {
+    // * 8월25일, 원래는 메시지가 touchCapsule일 때 아래가 진행되도록 했는데, 이제는 이미지 터치됐을 때로 바꾸기로 해서 바꿨음.
+    // !     if (parts[0] == "touchCapsule") -> if(parts[0] == touchImage)
+    if (parts[0] == "touchImage") {
       int cid = int.parse(parts[1]);
       String title = parts[2];
       //todo: 이 cid랑 title 토대로 capsuleDetail 창 열어야되고, 데이터베이스에는 이 cid 동일한거 가져오라고 나중에 명령어 기록하면 될듯. 현재 이 상황은 unity 상황에서 캡슐이 터치된 상황.

@@ -8,7 +8,10 @@ public class CapsuleTouchHandler : MonoBehaviour
     private CapsuleDetail capsuleDetail;
     public GameObject imagePrefab; // 이미지 프리팹
     public List<GameObject> CapsuleImageList;
-  
+    
+    private int cid =  -1;
+    private string title = null;
+
     
     void Start()
     {
@@ -49,13 +52,17 @@ public class CapsuleTouchHandler : MonoBehaviour
                     Debug.Log("Touch is on the capsule!");
                     if (capsuleDetail != null)
                     {
-                        int cid = capsuleDetail.getCid();
-                        string title = capsuleDetail.getTitle();
+                        cid = capsuleDetail.getCid();
+                        title = capsuleDetail.getTitle();
                         Debug.Log($"Touched capsule with cid: {cid}, title: {title}");
                         // sendToFlutter($"touchCapsule,{cid},{title}");
                         // FIXME: 이미지 보이는거 하고 나면 다시 수정해야함
                         ShowImageOnCapsule(hit.point); // 터치된 위치에 이미지 표시
                     }
+                }
+                else if(hit.collider.gameObject.name == "testpic"){
+                    Debug.Log("Touch is on the image of capsule!");
+                    sendToFlutter($"touchImage,{this.cid},{this.title}");
                 }
                 else
                 {
@@ -74,74 +81,41 @@ public class CapsuleTouchHandler : MonoBehaviour
         }
     }
 
-    // private void ShowImageOnCapsule(Vector3 position)
-    // {
-    //     // todo: 터치시에 캡슐 작동하도록 해야함 -> 터치시에 이미지 보이도록 해놓긴 함 6월17일 
-    //     // todo: 터치 됐을 때, 이미지 가져와서 List에 넣어주고 생성되도록 해야할듯. -> 원래는 터치 되면 거기서 보낸 cid, title, image 를 리스트에 담아둬서 cid에 맞게 그 image를 가져오도록 해야하는데 일단은 테스트 용도 위해서 따로 image 보내놓도록 했음.
-    //     // todo: 그리고 이제 이미지를 내가 직접 가져오는거 말고 터치 했을 때 flutter로부터 image 값 받아와서 출력되도록 해야함  -> 이거 해야함
-    //     // todo: 그리고 이미지 화소? 조절할 수 있으면 하는게 나을듯 -> 터치시에 이미지 보이도록 해놓긴 함 6월16일. 아래 필터 설정해서 했음 
-    //     if (imagePrefab != null)
-    //     {
-    //         Debug.Log("Instantiating image at position: " + position);
-
-    //         // 카메라 위치를 기준으로 일정 거리 떨어진 위치에 이미지 생성
-    //         Vector3 cameraPosition = Camera.main.transform.position;
-    //         Vector3 direction = (position - cameraPosition).normalized;
-    //         float distanceFromCamera = 5.0f; // 카메라로부터 떨어진 거리 (미터 단위로 조정 가능)
-    //         Vector3 spawnPosition = cameraPosition + direction * distanceFromCamera;
-
-    //         GameObject CapsuleImage = Instantiate(imagePrefab, spawnPosition, Quaternion.identity);
-
-    //         Renderer renderer = CapsuleImage.GetComponent<Renderer>();
-    //         if (renderer != null && renderer.material != null)
-    //         {
-    //             renderer.material.mainTexture.filterMode = FilterMode.Trilinear; // Trilinear 필터링 모드 설정 -> 화질 좋아지게 하려구
-    //         }
-
-
-    //         CapsuleImage.transform.LookAt(Camera.main.transform); // 카메라를 바라보도록 설정
-    //         CapsuleImageList.Add(CapsuleImage);
-    //         Debug.Log("Image instantiated and oriented towards the camera at position: " + spawnPosition);
-    //         CapsuleImage.SetActive(true);
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("imagePrefab is not assigned.");
-    //     }
-    // }
-
     private void ShowImageOnCapsule(Vector3 position)
 {
     if (imagePrefab != null)
     {
         Debug.Log("Instantiating image at position: " + position);
 
-        // Get the collider of the capsule
-        Collider capsuleCollider = GetComponent<Collider>();
-        if (capsuleCollider == null)
-        {
-            Debug.LogError("No collider found on the capsule.");
-            return;
-        }
+        // Get the camera position
+        Vector3 cameraPosition = Camera.main.transform.position;
 
-        // Automatically calculate the height of the capsule using its collider's bounds
-        float capsuleHeight = capsuleCollider.bounds.size.y;
+        // Calculate the direction vector from the capsule (hit point) to the camera
+        Vector3 directionToCamera = (cameraPosition - position).normalized;
 
-        // Calculate the spawn position above the capsule
-        float offsetAboveCapsule = capsuleHeight / 2 + 0.5f; // Adjust '0.5f' for more or less spacing
-        Vector3 spawnPosition = position + new Vector3(0, offsetAboveCapsule, 0);
+        // Determine the distance offset from the capsule towards the camera
+        float distanceFromCapsule = 1.0f; // This is the offset distance along the line, adjust as needed
+        // * 위에거 수동으로 임시로 했는데, 흠 이거 자동으로 하게 해야되는데 굳이 그러지 말자 귀찮다.
 
+        // Calculate the spawn position of the image between the capsule and the camera
+        Vector3 spawnPosition = position + directionToCamera * distanceFromCapsule;
+
+        // Instantiate the image at the calculated position
         GameObject CapsuleImage = Instantiate(imagePrefab, spawnPosition, Quaternion.identity);
 
+        // Ensure the image faces the camera
+        CapsuleImage.transform.LookAt(Camera.main.transform);
+
+        // Optional: Set texture quality settings
         Renderer renderer = CapsuleImage.GetComponent<Renderer>();
         if (renderer != null && renderer.material != null)
         {
-            renderer.material.mainTexture.filterMode = FilterMode.Trilinear; // Improve texture quality with Trilinear filtering
+            renderer.material.mainTexture.filterMode = FilterMode.Trilinear;
         }
 
-        CapsuleImage.transform.LookAt(Camera.main.transform); // Orient the image to face the camera
+        // Add the instantiated image to the list and activate it
         CapsuleImageList.Add(CapsuleImage);
-        Debug.Log("Image instantiated and oriented towards the camera at position: " + spawnPosition);
+        Debug.Log("Image instantiated between the capsule and the camera at position: " + spawnPosition);
         CapsuleImage.SetActive(true);
     }
     else
@@ -150,18 +124,6 @@ public class CapsuleTouchHandler : MonoBehaviour
     }
 }
 
-
-    //   if (imagePrefab != null)
-    //     {
-    //         Debug.Log("Instantiating image at position: " + position);
-    //         GameObject imageInstance = Instantiate(imagePrefab, position, Quaternion.identity);
-    //         imageInstance.transform.LookAt(Camera.main.transform); // 카메라를 바라보도록 설정
-    //         Debug.Log("Image instantiated and oriented towards the camera.");
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("imagePrefab is not assigned.");
-    //     }
 
     // todo: 받은 cid를 터치했을 때 다시 flutter한테 보내가지고, flutter한테서 해당 cid의 image를 받아야함.
     public void sendToFlutter(string message)
