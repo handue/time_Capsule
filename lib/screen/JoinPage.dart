@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
-
-import 'package:intl/intl.dart'; // DateFormat을 사용하기 위한 import
+import 'package:intl/intl.dart';
 
 class JoinPage extends StatelessWidget {
   JoinPage({super.key});
-  final TextEditingController _dateController =
-      TextEditingController(); // _dateController 정의
+
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
+
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -27,18 +25,20 @@ class JoinPage extends StatelessWidget {
                   Text(
                     'CapInNet',
                     style: TextStyle(
-                        fontFamily: 'Kalam',
-                        fontSize: width * 0.075,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 53, 68, 80)),
+                      fontFamily: 'Kalam',
+                      fontSize: width * 0.075,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 53, 68, 80),
+                    ),
                   ),
                   Text(
                     '회원가입을 환영합니다!',
                     style: TextStyle(
-                        fontFamily: 'Kalam',
-                        fontSize: width * 0.035,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black.withOpacity(0.5)),
+                      fontFamily: 'Kalam',
+                      fontSize: width * 0.035,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
                   ),
                   SizedBox(height: height * 0.05),
                   TextFormField(
@@ -47,14 +47,60 @@ class JoinPage extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
+                  Column(
+                    children: [
+                      SizedBox(height: height * 0.05),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: height * 0.08,
+                              child: const TextField(
+                                decoration: InputDecoration(
+                                  hintText: "닉네임",
+                                  border: OutlineInputBorder(),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                ),
+                                maxLength: 20,
+                                maxLines: 1,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: width * 0.02),
+                          TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.03),
+                            ),
+                            child: const Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '중복확인',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: height * 0.03),
                   TextFormField(
                     decoration: const InputDecoration(
                       labelText: '이메일',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.03),
                   TextFormField(
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -73,17 +119,17 @@ class JoinPage extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
-                  _buildDateOfBirthField(context), // BuildContext 전달
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.02),
+                  _buildDateOfBirthField(context),
+                  SizedBox(height: height * 0.02),
                   _buildPhoneNumberField(),
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.02),
                   SizedBox(
-                    width: width * 0.3,
+                    width: width * 0.8,
                     height: height * 0.06,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black, // 배경색 검은색
+                        backgroundColor: Colors.black,
                       ),
                       onPressed: () {},
                       child: const Text(
@@ -105,37 +151,37 @@ class JoinPage extends StatelessWidget {
 
   Widget _buildDateOfBirthField(BuildContext context) {
     return InkWell(
-      onTap: () {
-        _selectDate(context);
+      onTap: () async {
+        final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        );
+
+        if (picked != null) {
+          _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+          (context as Element).markNeedsBuild(); // Rebuild the widget tree
+        }
       },
-      child: const InputDecorator(
-        decoration: InputDecoration(
+      child: InputDecorator(
+        decoration: const InputDecoration(
           labelText: '생년월일',
           border: OutlineInputBorder(),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('YYYY-MM-DD'),
-            Icon(Icons.calendar_today),
+            Text(
+              _dateController.text.isEmpty
+                  ? 'YYYY-MM-DD'
+                  : _dateController.text,
+            ),
+            const Icon(Icons.calendar_today),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-
-    if (picked != null) {
-      final formattedDate = DateFormat('yyyy-MM-dd').format(picked);
-      _dateController.text = formattedDate;
-    }
   }
 
   Widget _buildPhoneNumberField() {

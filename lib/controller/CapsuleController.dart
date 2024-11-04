@@ -9,6 +9,7 @@ class CapsuleController extends GetxController {
   RxList<CapsuleModel?> nearCapsuleList = RxList<CapsuleModel?>([]);
   Rx<CapsuleModel?> newCapsule = Rx<CapsuleModel?>(null);
 
+  
   RxString capsuleTitle = ''.obs;
   RxString capsuleCreatedTime = ''.obs;
   RxString capsuleParty = ''.obs;

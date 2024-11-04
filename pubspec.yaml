@@ -47,6 +47,10 @@ dependencies:
   arkit_plugin: ^1.0.7
   flutter_unity_widget: ^2022.2.0
   intl: ^0.19.0
+  flutter_staggered_animations: ^1.0.0
+  shimmer: ^2.0.0
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
 
 
 dev_dependencies:
@@ -226,6 +230,14 @@ flutter:
       - images/bear.png
       - images/capsule.png
       - images/testpic.png
+      - images/_animal.png
+      - images/basketball.png
+      - images/bridge.jpeg
+      - images/eye.png
+      - images/foot.png
+      - images/home.png
+      - images/travel.png
+      
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

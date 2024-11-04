@@ -12,6 +12,7 @@ class Notificationpage extends StatelessWidget {
   BottomButtonController bottomButtonController =
       Get.find<BottomButtonController>();
   PostController postController = Get.find<PostController>();
+  final ValueNotifier<bool> showFirstScreen = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,6 @@ class Notificationpage extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              backgroundColor: Colors.white,
               // SliverFillRemaining 나중에 이거 함 써봐도 좋을듯
               automaticallyImplyLeading: false,
               // expandedHeight: 200,
@@ -67,6 +67,7 @@ class Notificationpage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: width * 0.05,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -74,156 +75,149 @@ class Notificationpage extends StatelessWidget {
               ]),
             ),
             SliverPadding(
-              padding: EdgeInsets.all(width * 0.05),
+              padding: EdgeInsets.all(width * 0.02),
               sliver: SliverToBoxAdapter(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: height * 0.01,
-                    ),
-                    Row(
-                      children: [
-                        Column(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              // 아래쪽 테두리
+                              color: Colors.grey, // 테두리 색상
+                              width: 1.0, // 테두리 두께
+                            ),
+                          ),
+                        ),
+                        child: Column(
                           children: [
-                            Card(
-                              shadowColor:
-                                  const Color.fromARGB(255, 147, 167, 242),
-                              elevation: 3,
-                              clipBehavior: Clip.antiAlias,
-                              shape: const CircleBorder(
-                                  side: BorderSide(
-                                width: 1,
-                              )),
-                              child: SizedBox(
-                                width: width * 0.08,
-                                height: height * 0.05,
-                                child: const Image(
-                                  image: AssetImage('images/profile.png'),
-                                ),
+                            SizedBox(height: height * 0.03),
+                            const Text(
+                              '용인팟',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: width * 0.02,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'insu_1004(김인수)님께서 친구요청을 보냈습니다.',
-                                style: TextStyle(
-                                  fontSize: width * 0.035,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black, // 버튼 배경색상
-                                      shape: RoundedRectangleBorder(
+                                  Card(
+                                    shadowColor: Colors.white,
+                                    elevation: 5,
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: ContinuousRectangleBorder(
                                         borderRadius: BorderRadius.circular(
-                                            10.0), // 버튼 모서리를 둥글게 만듦
+                                            50), // 원하는 둥글기
+                                        side: const BorderSide(
+                                            width: 1, color: Colors.black)),
+                                    child: SizedBox(
+                                      width: width * 0.15,
+                                      height: width * 0.15,
+                                      child: const Image(
+                                        image: AssetImage('images/profile.png'),
                                       ),
                                     ),
-                                    child: SizedBox(
-                                      width: width * 0.1,
-                                      height: height * 0.02,
-                                      child: const Center(
-                                        child: Text(
-                                          '수락',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.05,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.6,
+                                    child: const Text(
+                                      '축하합니다! 용인팟의 파티장이 되셨습니다!',
+                                      style: TextStyle(
+                                        fontSize: 20,
                                       ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
                                     ),
                                   ),
                                   SizedBox(
                                     width: width * 0.02,
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black, // 버튼 배경색상
-                                      shape: RoundedRectangleBorder(
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              // 아래쪽 테두리
+                              color: Colors.grey, // 테두리 색상
+                              width: 1.0, // 테두리 두께
+                            ),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(height: height * 0.03),
+                            const Text(
+                              '베스킷볼 프렌즈',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  Card(
+                                    shadowColor: Colors.white,
+                                    elevation: 5,
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: ContinuousRectangleBorder(
                                         borderRadius: BorderRadius.circular(
-                                            10.0), // 버튼 모서리를 둥글게 만듦
-                                      ),
-                                    ),
+                                            50), // 원하는 둥글기
+                                        side: const BorderSide(
+                                            width: 1, color: Colors.black)),
                                     child: SizedBox(
-                                      width: width * 0.1,
-                                      height: height * 0.02,
-                                      child: const Center(
-                                        child: Text(
-                                          '거절',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                      width: width * 0.15,
+                                      height: width * 0.15,
+                                      child: const Image(
+                                        image: AssetImage(
+                                            '/Users/zzuntekk/time_Capsule-main/images/basketball.png'),
                                       ),
                                     ),
                                   ),
+                                  SizedBox(
+                                    width: width * 0.05,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.6,
+                                    child: const Text(
+                                      '배스킷볼 프렌즈의 파티장이 김인수님으로 임명되었습니다.',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.02,
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              )),
+              ),
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 0.5, color: Colors.grey),
-          ),
-        ),
-        child: Obx(
-          () {
-            return BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              iconSize: width * 0.07, // 아이콘 크기 증가
-              unselectedItemColor: Colors.grey,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              selectedItemColor: Colors.blueAccent,
-              currentIndex: bottomButtonController.selectedIndex.value,
-              selectedLabelStyle: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: width * 0.035,
-                fontWeight: FontWeight.bold,
-              ),
-              unselectedLabelStyle: TextStyle(
-                color: Colors.grey,
-                fontSize: width * 0.03,
-                fontWeight: FontWeight.w500,
-              ),
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
-                BottomNavigationBarItem(icon: Icon(Icons.group), label: '파티'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.location_on_outlined), label: '맵'),
-                BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.profile_circled), label: '마이'),
-              ],
-              onTap: (index) {
-                bottomButtonController.onTap(index);
-              },
-            );
-          },
         ),
       ),
     );

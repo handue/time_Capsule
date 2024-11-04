@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
@@ -76,29 +77,39 @@ class _UnityArState extends State<UnityAr> {
 
   void sendUnityMessage() async {
     for (int i = 0; i < capsuleController.nearCapsuleList.value.length; i++) {
-      String sendMessage =
-          "${capsuleController.nearCapsuleList.value[i]?.cid},${capsuleController.nearCapsuleList.value[i]?.title}";
-
       // _unityWidgetController.postMessage('CapsuleSpawner', "receiveCidMessage",
       //     "${capsuleController.nearCapsuleList.value[i]?.cid}");
 
-      _unityWidgetController.postMessage(
-          'CapsuleSpawner', "receiveMessage", sendMessage);
       // _unityWidgetController.postMessage(
 
       // )
+      try {
+        final capsule = capsuleController.nearCapsuleList.value[i];
+        if (capsule?.image != null) {
+          File imageFile = File(capsule!.image);
+          List<int> imageBytes = await imageFile.readAsBytes();
+          String base64Image = base64Encode(imageBytes);
 
-      print('유니티 메시지 전송 완료: $sendMessage');
+          // 이미지 데이터 전송
+          String imageMessage = "${capsule.cid},$base64Image";
+          // _unityWidgetController.postMessage(
+          //     'CapsuleSpawner', 'receiveCapsuleImage', imageMessage);
+          String sendMessage =
+              "${capsuleController.nearCapsuleList.value[i]?.cid},${capsuleController.nearCapsuleList.value[i]?.title}, ${imageMessage}";
+
+          _unityWidgetController.postMessage(
+              'CapsuleSpawner', "receiveMessage", sendMessage);
+              
+          print('유니티 메시지 전송 완료: $sendMessage');
+
+        }
+      } catch (error) {
+        print('Error sending image to Unity: $error');
+      }
+
+      
     }
     // todo: 임의로 캡슐 눌렀을 때 사진 밖으로 나오나 테스트 해보려고 이렇게 했음.
-    try {
-      Future<String> sendImage =
-          UnityService.prepareImage('../images/testpic.png');
-      _unityWidgetController.postMessage('Canvas', 'receiveImage', sendImage);
-      print('유니티 이미지 전송 완료: $sendImage');
-    } catch (error) {
-      print(error);
-    }
   }
 
   // //! 원래는 cid 보내주는거를 서버쪽에다가 근방 500m 주변에 있는 것들로 보내달라고 해야함. 그렇게 했을때의 조건을 통과하고 그 조건의 cid를 보내는건데 일단은 이렇게 내가 임의로 cid 보내기로 함.

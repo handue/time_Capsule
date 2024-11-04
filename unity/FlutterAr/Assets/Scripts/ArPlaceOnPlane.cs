@@ -76,8 +76,9 @@ public class ArPlaceOnPlane : MonoBehaviour
         string[] parts = message.Split(',');
         int cid = int.Parse(parts[0]);
         string title = parts[1];
+        string image = parts[2];
         // receivedCid = int.Parse(message);
-        Debug.Log("처음이 cid 뒤가 title: " + cid + title);
+        Debug.Log("처음이 cid 뒤가 title, 맨 마지막이 이미지: " + cid + title + image);
         capsuleCreate(cid, title);
     }
 
@@ -90,7 +91,7 @@ public class ArPlaceOnPlane : MonoBehaviour
         Vector3 cameraForward = Camera.main.transform.forward;
 
         // 카메라로부터 일정 거리 내에서 랜덤한 위치 결정
-        float distance = Random.Range(1.0f, 5.0f); // 1m에서 5m 사이의 랜덤한 거리
+        float distance = Random.Range(4.0f, 8.0f); // 1m에서 5m 사이의 랜덤한 거리
         // Vector3 randomDirection = Random.insideUnitSphere; // 랜덤한 방향
         // Vector3 forwardDirection = Vector3.forward; // z축으로의 단위벡터
         Vector3 spawnPosition = cameraPosition + cameraForward * distance;

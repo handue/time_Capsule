@@ -16,14 +16,6 @@ class MapPage extends StatelessWidget {
 
   final LocationController locationController = Get.find<LocationController>();
 
-  // void _onMapCreated(GoogleMapController controller) {
-  //   locationController.mapController = controller;
-  //   // 초기 위치를 가져오거나 설정
-  //   if (locationController.currentPostion.value != null) {
-  //     locationController
-  //         .updateCameraPosition(locationController.currentPostion.value!);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

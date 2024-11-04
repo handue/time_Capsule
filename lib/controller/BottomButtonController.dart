@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:time_capsule/screen/GroupPage.dart';
+
 import 'package:time_capsule/screen/HomeScreen.dart';
 import 'package:time_capsule/screen/MapPage.dart';
 import 'package:time_capsule/screen/MyPage.dart';
+import 'package:time_capsule/screen/GroupPage.dart';
 
 class BottomButtonController extends GetxController {
   RxInt selectedIndex = 0.obs;
@@ -20,5 +21,3 @@ class BottomButtonController extends GetxController {
     }
   }
 }
-
-
