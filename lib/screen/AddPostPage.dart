@@ -40,8 +40,6 @@ class AddPostPage extends StatelessWidget {
                 _buildTitleField(width),
                 SizedBox(height: height * 0.03),
                 _buildContentField(width),
-                SizedBox(height: height * 0.03),
-                _buildLocationField(width),
                 SizedBox(height: height * 0.05),
                 _buildSubmitButton(width),
               ],
@@ -180,27 +178,27 @@ class AddPostPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLocationField(double width) {
-    return TextField(
-      readOnly: true,
-      onTap: () {
-        // Handle location selection
-      },
-      decoration: InputDecoration(
-        labelText: '위치',
-        hintText: '위치를 선택하세요',
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: Colors.blue, width: 2.0),
-        ),
-        prefixIcon: const Icon(Icons.location_on, color: Colors.blue),
-        suffixIcon: Icon(Icons.arrow_forward_ios,
-            color: Colors.blue, size: width * 0.04),
-      ),
-    );
-  }
+  // Widget _buildLocationField(double width) {
+  //   return TextField(
+  //     readOnly: true,
+  //     onTap: () {
+  //       // Handle location selection
+  //     },
+  //     decoration: InputDecoration(
+  //       labelText: '위치',
+  //       hintText: '위치를 선택하세요',
+  //       floatingLabelBehavior: FloatingLabelBehavior.always,
+  //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+  //       focusedBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(15),
+  //         borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+  //       ),
+  //       prefixIcon: const Icon(Icons.location_on, color: Colors.blue),
+  //       suffixIcon: Icon(Icons.arrow_forward_ios,
+  //           color: Colors.blue, size: width * 0.04),
+  //     ),
+  //   );
+  // }
 
   Widget _buildSubmitButton(double width) {
     return ElevatedButton(
@@ -241,7 +239,7 @@ class AddPostPage extends StatelessWidget {
       createdAt: DateTime.now(),
       updatedAt: '',
       image: imagePath,
-      like: 3,
+      like: 0,
       nickname: '홍준택탈모',
       capsuleLike: false,
       capsuleComment: ['홍준택 폼 미쳤다', '홍준택 그냥 미쳤다'],

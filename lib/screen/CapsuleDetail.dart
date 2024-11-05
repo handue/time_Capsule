@@ -8,14 +8,14 @@ import 'package:time_capsule/model/CapsuleModel.dart';
 import 'package:intl/intl.dart';
 
 class CapsuleDetail extends StatelessWidget {
-  CapsuleDetail({Key? key}) : super(key: key);
+  CapsuleDetail({super.key});
 
   final CapsuleController capsuleController = Get.find<CapsuleController>();
 
   void capsuleOntap(CapsuleModel capsule) {
     print('테스트 캡슐 터치!');
     capsuleController.capsuleContents.value = capsule.contents;
-    
+
     capsuleController.capsuleLike.value = capsule.like;
     capsuleController.capsuleLocationName.value = capsule.locationName;
     capsuleController.capsuleTitle.value = capsule.title;
@@ -37,7 +37,8 @@ class CapsuleDetail extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: height * 0.02),
+            padding: EdgeInsets.symmetric(
+                horizontal: width * 0.04, vertical: height * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -56,7 +57,8 @@ class CapsuleDetail extends StatelessWidget {
     return AppBar(
       toolbarHeight: height * 0.065,
       leading: IconButton(
-        icon: Icon(CupertinoIcons.xmark, size: width * 0.075, color: Colors.black54),
+        icon: Icon(CupertinoIcons.xmark,
+            size: width * 0.075, color: Colors.black54),
         onPressed: () => Get.back(),
       ),
       actions: [
@@ -72,11 +74,14 @@ class CapsuleDetail extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
               padding: EdgeInsets.symmetric(horizontal: width * 0.03),
             ),
             onPressed: () => Get.back(),
-            child: Text('수정', style: TextStyle(fontSize: width * 0.035, fontWeight: FontWeight.w500)),
+            child: Text('수정',
+                style: TextStyle(
+                    fontSize: width * 0.035, fontWeight: FontWeight.w500)),
           ),
         ),
       ],
@@ -94,7 +99,7 @@ class CapsuleDetail extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -141,7 +146,11 @@ class CapsuleDetail extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _buildImageItem(width, height, capsuleController.newCapsule.value?.image ?? "images/testpic.png"),
+          _buildImageItem(
+              width,
+              height,
+              capsuleController.newCapsule.value?.image ??
+                  "images/testpic.png"),
           // Add more images here if needed
         ],
       ),
@@ -155,9 +164,9 @@ class CapsuleDetail extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(
-          image: imagePath.startsWith('images/') 
-              ? AssetImage(imagePath) as ImageProvider  // 기본 이미지일 경우
-              : FileImage(File(imagePath)) as ImageProvider,  
+          image: imagePath.startsWith('images/')
+              ? AssetImage(imagePath) as ImageProvider // 기본 이미지일 경우
+              : FileImage(File(imagePath)) as ImageProvider,
           fit: BoxFit.cover,
         ),
       ),
@@ -215,7 +224,7 @@ class CapsuleDetail extends StatelessWidget {
         SizedBox(width: width * 0.04),
         _buildInteractionButton(
           icon: CupertinoIcons.chat_bubble,
-          label: '3',
+          label: '0',
           onPressed: () {
             // Handle comment action
           },
@@ -237,7 +246,8 @@ class CapsuleDetail extends StatelessWidget {
         children: [
           Icon(icon, size: width * 0.06, color: Colors.black87),
           SizedBox(height: width * 0.01),
-          Text(label, style: TextStyle(fontSize: width * 0.035, color: Colors.black87)),
+          Text(label,
+              style: TextStyle(fontSize: width * 0.035, color: Colors.black87)),
         ],
       ),
     );

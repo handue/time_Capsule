@@ -77,6 +77,9 @@ public class ArPlaceOnPlane : MonoBehaviour
         int cid = int.Parse(parts[0]);
         string title = parts[1];
         string image = parts[2];
+
+        byte[] imageBytes = Convert.FromBase64String(base64Image);
+
         // receivedCid = int.Parse(message);
         Debug.Log("처음이 cid 뒤가 title, 맨 마지막이 이미지: " + cid + title + image);
         capsuleCreate(cid, title);
